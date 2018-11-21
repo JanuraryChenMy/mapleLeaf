@@ -1,43 +1,55 @@
 <template>
-	<div>
-		<ul class="cartShow" v-if="dataList">
-			<li v-for="data,index in dataList" class="li">
-				<div class="select">
-					<div class="check">
-						<input type="checkbox" :key="data.id" :value="data" v-model="isList">
+	<div style="overflow: hidden">
+		<div class="title">
+			<router-link to="/" tag="span">主页</router-link>
+			<span>购物车</span>
+			<span @click="whatIns">{{insCon}}</span>
+		</div>
+		
+			<transition-group name="slide-fade" class="cartShow" v-if="dataList.length===0? false: true" tag="ul">
+				<li v-for="data,index in dataList" class="li" :key="data.id">
+					<div class="select">
+						<div class="check">
+							<input type="checkbox" :key="data.id" :value="data" v-model="isList">
+						</div>
+						<div class="LeftAndRight">
+							<button @click="clickJ(index)">-</button>
+							<input type="text" v-model="data.number" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+							<button @click="clickZ(index)">+</button>
+						</div>
 					</div>
-					<div class="LeftAndRight">
-						<button @click="clickJ(index)">-</button>
-						<input type="text" v-model="data.number" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
-						<button @click="clickZ(index)">+</button>
+					<div class="show">
+						<div class="img">
+							<img :src="data.img">
+						</div>
+						<ul class="cartContent">
+							<li class="name">{{data.name}}</li>
+							<li class="style">
+								<span v-for="dataCon,index in data.style" class="styleSpan">{{dataCon}}</span>
+							</li>
+							<li class="nulll"></li>
+							<li class="price">
+								<span class="span1">￥{{data.price}}</span>
+								<span class="span2">x{{data.number}}</span>
+							</li>
+						</ul>
 					</div>
-				</div>
-				<div class="show">
-					<div class="img">
-						<img :src="data.img">
-					</div>
-					<ul class="cartContent">
-						<li class="name">{{data.name}}</li>
-						<li class="style">
-							<span v-for="dataCon,index in data.style" class="styleSpan">{{dataCon}}</span>
-						</li>
-						<li class="nulll"></li>
-						<li class="price">
-							<span class="span1">￥{{data.price}}</span>
-							<span class="span2">x{{data.number}}</span>
-						</li>
-					</ul>
-				</div>
-			</li>
-		</ul>
-		{{isList}}
+				</li>
+			</transition-group>
+		
 		<!-- {{dataList}} -->
-		<div class="bottom_nav">
+		<div class="bottom_nav" v-if="ins">
 			<div class="b_nav_left">
-				<jj><input type="checkbox" :name="dataList" v-model="isAll">全选</jj>
+				<i><input type="checkbox" :name="dataList" v-model="isAll">全选</i>
 				<span>合计：{{allPrice}}</span>
 			</div>
 			<button @click="submilt">提交订单</button>
+		</div>
+		<div class="bottom_nav" v-if="!ins">
+			<div class="b_nav_left">
+				<i><input type="checkbox" :name="dataList" v-model="isAll">全选</i>
+			</div>
+			<button @click="deleteLi" class="del">删除</button>
 		</div>
 		<div class="zhanwei"></div>
 	</div>
@@ -49,8 +61,9 @@ export default {
 	name: 'car',
 	data(){
 		return{
-			dataList: 'null',
-			isList: []
+			dataList: [],
+			isList: [],
+			ins: true
 		}
 	},
 	methods: {
@@ -62,6 +75,19 @@ export default {
 		},
 		submilt(){
 
+		},
+		deleteLi(){
+			this.isList.forEach(islist=>{
+					islist.id
+				this.dataList.forEach((datalist,index)=>{
+					if (islist.id === datalist.id) {
+						this.dataList.splice(index, 1);
+					}
+				})
+			})
+		},
+		whatIns(){
+			this.ins = !this.ins;
 		}
 	},
 	mounted(){
@@ -104,7 +130,8 @@ export default {
 					number: 5
 				}
 			]
-		},500)
+		},500),
+		this.$store.commit('changeNavbar', 0)
 	},
 	computed:{
 		isAll:{
@@ -128,7 +155,14 @@ export default {
 			this.isList.forEach((data)=>{
 				sun+= data.number * data.price
 			})
-			return sun
+			return sun;
+		},
+		insCon(){
+			if (this.ins) {
+				return "编辑";
+			}else{
+				return "完成";
+			}
 		}
 	}
 };
@@ -136,6 +170,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+button{
+	margin: 0;
+	padding: 0;
+	border: 1px solid transparent;
+	outline: none; 
+}
 .cartShow{
 	width: 100%;
 	height:auto;
@@ -151,7 +191,7 @@ export default {
 			display: block;
 		}
 		.show{
-			border-top: 1px solid #ccc;
+			
 			border-bottom: 1px solid #ccc;
 			padding-top: .1rem;
 			width: 100%;
@@ -169,6 +209,7 @@ export default {
 		}
 		.select{
 			padding:.1rem 0;
+			border-bottom: 1px solid #ccc;
 			.check{
 				float:left;
 				input{
@@ -183,6 +224,7 @@ export default {
 				}
 				button{
 					background-color: #eee;
+					border-radius: 2px;
 					width: .25rem;
 					height: .25rem;
 				}
@@ -232,17 +274,21 @@ export default {
 	height: .6rem;
 	background-color: #fff;
 	position: fixed;
+	overflow: hidden;
+	align-items: center;
+	justify-content:space-between;
 	bottom: 0;
 	z-index: 10;
+	display: flex;
 	.b_nav_left{
 		display: flex;
 		justify-content:space-between;
+		align-items: center;
+		padding: 0 .16rem;
+		box-sizing: border-box;
 		width: 2.65rem;
-		float: left;
-
 		span{
-		display: inline-block;
-		height: 100%;
+			align-self: center;
 		}
 
 		input{
@@ -254,17 +300,46 @@ export default {
 		background-color: #FFD444;
 		padding: 0 .2rem;
 		font-size: .16rem;
-		float: right;
 	}
-	
+	.del{
+		background-color: #000;
+		color: #fff;
+		height: 100%;
+		width: 1.06rem;
+	}
 }
-.bottom_nav:after{
+.bottom_nav:before{
 		clear: both;
 		content:"";
 		display: block;
+		overflow: hidden;
+		height: 0;
 	}
 .zhanwei{
 	width: 100%;
 	height: .6rem;
+}
+.title{
+	display: flex;
+	justify-content:space-between;
+	padding: .05rem .12rem;
+	font-size: 16px;
+	span:nth-of-type(2){
+		font-size: 18px;
+		font-weight: 600;
+	}
+}
+
+
+
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to{
+  transform: translateX(100%);
+  opacity: 0;
 }
 </style>
