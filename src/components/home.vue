@@ -59,6 +59,7 @@
 		line-height: 0.48rem;
 		margin-left: 0.1rem;
 		margin-right: 0.1rem; 
+		font-family: "SimHei";
 	}
 		
 	.input{
