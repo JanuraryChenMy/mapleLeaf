@@ -12,10 +12,13 @@
 		<div id="leftTabBox" class="tabBox">
             <div class="hd">
                 <ul>
-                    <li v-for="data,index in datalist" :key="data.id" :class="current==index?'special':''" @click="handleClick(index)">
-						{{data}}
-                    </li>
+                    <router-link to="" tag="li" activeClass="active">全部</router-link>
+                    <router-link to="" tag="li" activeClass="active">待付款</router-link>
+                    <router-link to="" tag="li" activeClass="active">待发货</router-link>
+                    <router-link to="" tag="li" activeClass="active">待发货</router-link>
+                    <router-link to="" tag="li" activeClass="active">待评论</router-link>
                 </ul>
+                <router-view></router-view>
             </div>
         </div>
 	</div>

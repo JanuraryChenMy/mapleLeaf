@@ -16,9 +16,13 @@
 					<input type="button" name="button" value="兑换" @click="getCoupon()" class="exchange">
 				</div>
 				<ul class="rmb">
-					<li v-for="data in datalist">
-						<h3></h3>
-						<p></p>
+					<li v-for="data in datalist" class="zhengti">
+						<h3>{{data.deduction}}元</h3>
+						<ul class="right">
+							<li class="one">{{data.title}}</li>
+							<li class="two">{{data.limitDesc}}</li>
+							<li class="three">{{data.effectiveFrom}}至{{data.effectiveTo}}</li>
+						</ul>
 					</li>
 				</ul>
 			</div>
@@ -33,7 +37,7 @@ export default {
 	name:'rmb',
 	data(){
 		return{
-			datalist:[]
+			datalist:[],
 		}
 	},
 	methods:{
@@ -42,6 +46,8 @@ export default {
 	mounted(){
 		axios.get("/marketing/allMyCoupons?currentPage=1&pageSize=10&_=1542789657446").then(res=>{
 			console.log(res.data);
+			console.log(res.data.data);
+			this.datalist = res.data.data;
 			// this.datalist = res.data.data.coupons
 		})
 	}
@@ -104,7 +110,7 @@ header{
 	margin:0;
 	overflow: hidden;
 	.countBox{
-		width: 100%;
+		width:90%;
 		padding:0.2rem;
 		.search{
 			height:0.6rem;
@@ -122,14 +128,50 @@ header{
 				border:0.01rem solid #eee;
 			}
 			.exchange{
-				width:1rem;
+				width:0.85rem;
 				height:0.5rem;
 				line-height:0.5rem;
 				background:#ffd444;
 				color:#000;
 				border:0;
 				position: relative;
-				top:-0.07rem;
+				top:-0.1rem;
+			}
+		}
+		.rmb{
+			.zhengti{
+				width:95%;
+				height:1rem;
+				background:#fff;
+				position: relative;
+				margin-bottom:0.24rem;
+				border:0.01rem solid #eee;
+				h3{
+					width:0.9rem;
+					height:1rem;
+					line-height: 1rem;
+					font-style: 0.4rem;
+					text-align: center;
+					border-right:0.01rem dashed #ccc;
+				}
+				.right{
+					width:3rem;
+					list-style: none;
+					margin:0;
+					padding:0;
+					position: absolute;
+					left:1.1rem;
+					top:50%;
+					transform: translateY(-50%);
+					.two{
+						color:#ff7070;
+						font-size:0.13rem;
+					}
+					.three{
+						color:#808080;
+						font-size:0.13rem;
+					}
+				}
 			}
 		}
 	}
