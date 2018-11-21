@@ -28,7 +28,7 @@
 				this.$store.commit('changeNavbar',1);
 			},
 			changeTitle(data){
-				console.log(data)
+				// console.log(data)
 				this.title = data
 			}
 		}
