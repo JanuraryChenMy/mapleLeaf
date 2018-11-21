@@ -6,7 +6,7 @@
 				<dl>
 					<dt>
 						<p v-html="messageTitle[index]"></p>
-						<i class="iconfont icon-more" @click="goMessageList()"></i>
+						<i class="iconfont icon-more" @click="goMessageList(messageTitle[index])"></i>
 					</dt>
 					<dd>
 						<p>{{data.msgContent}}</p>
@@ -49,8 +49,9 @@
 				}
 			},
 			methods:{
-				goMessageList(){
+				goMessageList(data){
 					this.$router.push('/message/msglist');
+					this.$emit('changetitle',data)
 				}
 			}
 		}

@@ -5,7 +5,7 @@
 			<i i class="iconfont icon-account" @click="goMy()"></i>
 			<p>{{title}}</p>
 		</header>
-		<router-view msgTitle="messageList"></router-view>
+		<router-view  @changetitle='changeTitle($event)'></router-view>
 	</div>
 </template>
 
@@ -26,6 +26,10 @@
 			goMy(){
 				this.$router.push('/My');
 				this.$store.commit('changeNavbar',1);
+			},
+			changeTitle(data){
+				console.log(data)
+				this.title = data
 			}
 		}
 	}
