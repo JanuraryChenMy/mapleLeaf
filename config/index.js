@@ -12,11 +12,22 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
 
+<<<<<<< HEAD
         "/pages":{
             target:'https://m.wowdsgn.com',
             host:'m.wowdsgn.com',
             changeOrigin:true
         },
+=======
+        '/message':{
+            target:'https://m.wowdsgn.com',
+            host:'m.wowdsgn.com',
+            changeOrigin:true,
+            headers:{
+                Cookie:'JSESSIONID=B07mm02bQrRWitSuHTVWejF2bn0l__WYHka8f-XH; UM_distinctid=16734a099ce389-0699ee140c36af-2d604637-3d10d-16734a099cf15f; CNZZDATA1261113455=553878183-1542775703-https%253A%252F%252Fm.wowdsgn.com%252F%7C1542775703; channel=3; sessionToken=4kg4ezctihqguczpd7ufndakuuhb91u1rx0f'
+            }
+        }
+>>>>>>> 2a7b770094b4ecdf119d551b6535edebe66c7452
     },
 
     // Various Dev Server settings

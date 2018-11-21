@@ -28,9 +28,10 @@ export default {
 </script>
 
 <style lang="scss">
-  html{ font-size:26.66666667vw; }
+  html{ font-size:26.66666667vw;height:100%; }
   body{
     font-size:0.16rem;
+    height:100%;
   }
   *{
     margin:0;
@@ -38,6 +39,9 @@ export default {
   }
   ul,li{
     list-style:none;
+  }
+  #app{
+    height:100%;
   }
  .nav{
     width:100%;
