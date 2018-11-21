@@ -2,7 +2,7 @@
 	<div>
 		<header>
 			 <router-link tag="div" to="/my/myself" class="header-left">
-			 	<
+			 	
 			 </router-link>
 			 <h3 class="header-middle">我的订单</h3>
 			 <router-link tag="div" to="/home" class="header-right">

@@ -11,13 +11,13 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-<<<<<<< HEAD
+
         "/v2":{
             target:"https://m.wowdsgn.com",
             host:"m.wowdsgn.com",
             changeOrigin:true
-        }
-=======
+        },
+
 
 
         "/pages":{
@@ -44,7 +44,7 @@ module.exports = {
             }
         }
 
->>>>>>> 9e6ade5d0c568f8926ed2636ceeef529eef6a9cd
+
     },
 
     // Various Dev Server settings
