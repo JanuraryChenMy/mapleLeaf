@@ -68,6 +68,7 @@ export default {
     position:fixed;
     bottom:0;
     left:0;
+    background:white;
     .nav-bar{
       flex:1;
       height:100%;

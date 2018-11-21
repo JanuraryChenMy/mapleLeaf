@@ -5,7 +5,17 @@
 </template>
 
 <script>
-	
+	export default {
+		name:'my',
+		data(){
+			return {
+
+			}
+		},
+		mounted(){
+			this.$store.commit('changeNavbar',0);
+		}
+	}
 </script>
 
 <style lang="scss" scoped>
