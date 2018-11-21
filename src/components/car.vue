@@ -1,12 +1,14 @@
 <template>
+	<transition appear name="slide-fade">
 	<div style="overflow: hidden">
+		<div class="iii"></div>
 		<div class="title">
 			<router-link to="/" tag="span">主页</router-link>
 			<span>购物车</span>
 			<span @click="whatIns">{{insCon}}</span>
 		</div>
 		
-			<transition-group name="slide-fade" class="cartShow" v-if="dataList.length===0? false: true" tag="ul">
+			<transition-group appear name="slide-fade" class="cartShow" v-if="dataList.length===0? false: true" tag="ul">
 				<li v-for="data,index in dataList" class="li" :key="data.id">
 					<div class="select">
 						<div class="check">
@@ -38,21 +40,33 @@
 			</transition-group>
 		
 		<!-- {{dataList}} -->
-		<div class="bottom_nav" v-if="ins">
+		<!-- <transition appear name="slide-fade"> -->
+		<div class="bottom_nav">
 			<div class="b_nav_left">
 				<i><input type="checkbox" :name="dataList" v-model="isAll">全选</i>
-				<span>合计：{{allPrice}}</span>
+				<transition appear name="slide-fade">
+				<span v-if="ins">合计：{{allPrice}}</span>
+				</transition>
 			</div>
-			<button @click="submilt">提交订单</button>
+			<transition appear name="slide-fade">
+				<button @click="submilt" v-if="ins">提交订单</button>
+				<button @click="deleteLi" class="del" v-if="!ins">删除</button>
+			</transition>
 		</div>
-		<div class="bottom_nav" v-if="!ins">
-			<div class="b_nav_left">
-				<i><input type="checkbox" :name="dataList" v-model="isAll">全选</i>
-			</div>
-			<button @click="deleteLi" class="del">删除</button>
-		</div>
+		<p class="pp">-&nbsp;为您推荐&nbsp;-</p>
+		<ul class="cureList">
+			<router-link to="" tag="li" v-for="data,index in cure" :key="data.id">
+				<div class="img">
+					<img src="data.img">
+				</div>
+				<p>{{data.name}}</p>
+				<p>￥{{data.price}}</p>
+				<p>{{data.what}}</p>
+			</router-link>
+		</ul>
 		<div class="zhanwei"></div>
 	</div>
+</transition>
 </template>
 
 <script>
@@ -63,7 +77,45 @@ export default {
 		return{
 			dataList: [],
 			isList: [],
-			ins: true
+			ins: true,
+			cure: [
+				{
+					name: 'fdsgag',
+					img: 'fdsfasf',
+					price: 888,
+					what: "dsfsfasdf"
+				},
+				{
+					name: 'fdsgag',
+					img: 'fdsfasf',
+					price: 888,
+					what: "dsfsfasdf"
+				},
+				{
+					name: 'fdsgag',
+					img: 'fdsfasf',
+					price: 888,
+					what: "dsfsfasdf"
+				},
+				{
+					name: 'fdsgag',
+					img: 'fdsfasf',
+					price: 888,
+					what: "dsfsfasdf"
+				},
+				{
+					name: 'fdsgag',
+					img: 'fdsfasf',
+					price: 888,
+					what: "dsfsfasdf"
+				},
+				{
+					name: 'fdsgag',
+					img: 'fdsfasf',
+					price: 888,
+					what: "dsfsfasdf"
+				}
+			]
 		}
 	},
 	methods: {
@@ -77,14 +129,27 @@ export default {
 
 		},
 		deleteLi(){
-			this.isList.forEach(islist=>{
-					islist.id
+			if (this.dataList.length === this.isList.length) {
+				// this.dataList = [];
+				for(var i=this.dataList.length; i>=0; i-- ){
+					this.dataList.splice(i, 1);
+				}
+				this.isList = [];
+				this.ins = !this.ins;
+				return;
+			}
+			this.isList.forEach((islist,ind)=>{
 				this.dataList.forEach((datalist,index)=>{
 					if (islist.id === datalist.id) {
 						this.dataList.splice(index, 1);
+						// this.isList.splice(ind, 1);
 					}
 				})
 			})
+			console.log(this.dataList,this.isList)
+			this.isList = [];
+			this.ins = !this.ins;
+			console.log(2)
 		},
 		whatIns(){
 			this.ins = !this.ins;
@@ -128,15 +193,42 @@ export default {
 					],
 					price: '999',
 					number: 5
+				},
+				{
+					id: 4,
+					img: 'fsdfsgfsdag.jpg',
+					name: '窗帘',
+					style: [
+						'白色',
+						'黑色',
+						'红色'
+					],
+					price: '999',
+					number: 5
+				},
+				{
+					id: 5,
+					img: 'fsdfsgfsdag.jpg',
+					name: '窗帘',
+					style: [
+						'白色',
+						'黑色',
+						'红色'
+					],
+					price: '999',
+					number: 5
 				}
 			]
 		},500),
 		this.$store.commit('changeNavbar', 0)
 	},
+	beforeDestroy(){
+		this.$store.commit('changeNavbar', 1)
+	},
 	computed:{
 		isAll:{
 			get(){
-				if (this.dataList.length === this.isList.length) {
+				if (this.dataList.length === this.isList.length && this.isList.length!==0) {
 					return true
 				}else{
 					return false
@@ -144,9 +236,11 @@ export default {
 			},
 			set(data){
 				if (data) {
-					this.isList = this.dataList
+					this.isList = this.dataList;
+					return true
 				}else{
-					this.isList = []
+					this.isList = [];
+					return false
 				}
 			}
 		},
@@ -170,6 +264,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.iii{
+	width: 100%;
+	height: .33rem;
+	background-color: #fff;
+}
 button{
 	margin: 0;
 	padding: 0;
@@ -179,6 +278,7 @@ button{
 .cartShow{
 	width: 100%;
 	height:auto;
+	border-bottom: 20px solid #eee;
 	.li{
 		margin: 0 auto;
 		width: 3.45rem;
@@ -192,9 +292,10 @@ button{
 		}
 		.show{
 			
-			border-bottom: 1px solid #ccc;
-			padding-top: .1rem;
+			border-bottom: 1px solid #eee;
+			padding-top: .2rem;
 			width: 100%;
+			padding-bottom: .2rem;
 		}
 		.img{
 			float: left;
@@ -209,7 +310,7 @@ button{
 		}
 		.select{
 			padding:.1rem 0;
-			border-bottom: 1px solid #ccc;
+			border-bottom: 1px solid #eee;
 			.check{
 				float:left;
 				input{
@@ -269,6 +370,31 @@ button{
 		display: block;
 	}
 }
+.pp{
+	text-align: center;
+	padding: 20px 0;
+	font-weight: 600;
+	border-bottom: 1px solid #eee;
+}
+.cureList{
+	width: 100%;
+	height: auto;
+	box-sizing: border-box;
+	overflow: hidden;
+	li{
+		width: 50%;
+		height: 2.7rem;
+		background-color: red;
+		float: left;
+	}
+}
+.cureList:before{
+	clear: both;
+	content:"";
+	display: block;
+	overflow: hidden;
+	height: 0;
+}
 .bottom_nav{
 	width: 100%;
 	height: .6rem;
@@ -320,6 +446,12 @@ button{
 	height: .6rem;
 }
 .title{
+	width: 100%;
+	box-sizing: border-box;
+	height: .33rem;
+	position: fixed;
+	background-color: #fff;
+	top: 0;
 	display: flex;
 	justify-content:space-between;
 	padding: .05rem .12rem;
@@ -339,7 +471,7 @@ button{
   transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
 .slide-fade-enter, .slide-fade-leave-to{
-  transform: translateX(100%);
+  transform: translateX(10%);
   opacity: 0;
 }
 </style>
