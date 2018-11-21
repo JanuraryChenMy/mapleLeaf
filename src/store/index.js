@@ -12,7 +12,13 @@ const store = new Vuex.Store({
 
 	},
 	mutations:{
-
+		changeNavbar(state,payload){
+			if(payload === 0){
+				state.show = false;
+			} else{
+				state.show = true;
+			}
+		}
 	}
 })
 
