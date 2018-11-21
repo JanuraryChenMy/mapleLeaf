@@ -5,27 +5,50 @@
       <router-link tag="div" to="/classify" activeClass="active" class="nav-bar">分类</router-link>
       <router-link tag="div" to="/car" activeClass="active" class="nav-bar">购物车</router-link>
       <router-link tag="div" to="/message" activeClass="active" class="nav-bar">消息</router-link>
-      <router-link tag="div" to="/my" activeClass="active" class="nav-bar">我</router-link>
+      <router-link tag="div" to="/my" activeClass="active" class="nav-bar" @click="handClick()">我</router-link>
     </nav>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+
+// export default {
+//   name: 'App',
+//   data(){
+//     return{
+//       store.state.show:true,
+//     }
+//   },
+//   methods:{
+//     handClick(){
+//       if(this.store.state.show){
+//         this.store.state.show = !this.store.state.show;
+//       }
+//     }
+//   }
+// }
+
+  import catalog from './components/catalog'
 export default {
   name: 'App',
   data(){
     return{
 
     }
+  },
+  components:{
+    catalog
   }
 }
+
 </script>
 
 <style lang="scss">
-  html{ font-size:26.66666667vw; }
+  html{ font-size:26.66666667vw;height:100%; }
   body{
     font-size:0.16rem;
+    height:100%;
   }
   *{
     margin:0;
@@ -34,6 +57,9 @@ export default {
   ul,li{
     list-style:none;
   }
+  #app{
+    height:100%;
+  }
  .nav{
     width:100%;
     height:0.44rem;
@@ -41,6 +67,7 @@ export default {
     position:fixed;
     bottom:0;
     left:0;
+    background:white;
     .nav-bar{
       flex:1;
       height:100%;
