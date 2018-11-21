@@ -16,6 +16,13 @@ import Register from '../components/register.vue'
 import Forgetpass from '../components/forgetpass.vue'
 
 import Order from '../components/order.vue'
+
+import Orderall from '../components/orderall.vue'
+import Ordercomment from '../components/ordercomment.vue'
+import Orderdelivery from '../components/orderdelivery.vue'
+import Orderpay from '../components/orderpay.vue'
+import Orderreceived from '../components/orderreceived.vue'
+
 import Information from '../components/information.vue'
 
 import Common from '../components/common.vue'
@@ -118,7 +125,29 @@ export default new Router({
         },
         {
           path:'order',
-          component:Order
+          component:Order,
+          children:[
+            {
+              path:'orderall',
+              component:Orderall,
+            },
+            {
+              path:'ordercomment',
+              component:Ordercomment,
+            },
+            {
+              path:'orderdelivery',
+              component:Orderdelivery,
+            },
+            {
+              path:'orderpay',
+              component:Orderpay,
+            },
+            {
+              path:'orderreceived',
+              component:Orderreceived,
+            }
+          ]
         },
         {
           path:'',
