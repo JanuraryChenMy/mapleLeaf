@@ -25,6 +25,9 @@ import Active from '../components/active.vue'
 
 import Catalog from '../components/catalog.vue'
 
+import MessageList from '../components/messageList.vue'
+import MsgTitle from '../components/msgTitle.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -71,7 +74,21 @@ export default new Router({
     },
     {
       path: '/message',
-      component: Message
+      component: Message,
+      children:[
+        {
+          path:'msglist',
+          component:MessageList
+        },
+        {
+          path:'msg',
+          component:MsgTitle
+        },
+        {
+          path:'',
+          component:MsgTitle
+        }
+      ]
     },
     {
       path: '/my',
