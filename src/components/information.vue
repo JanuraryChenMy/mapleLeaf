@@ -2,10 +2,10 @@
 	<div>
 		<header>
 			 <a href="/home" class="header-left">
-			 	<img src="/static/imgs/login_return.png">
+			 	<img src="../assets/home.png">
 			 </a>
 			 <h3 class="header-middle">个人信息</h3>
-			 <router-link tag="div" to="/my/myself" class="header-right"><img src="/static/imgs/me.png"></router-link>
+			 <router-link tag="div" to="/my/myself" class="header-right"><img src="../assets/me.png"></router-link>
 		</header>
 	</div>
 </template>

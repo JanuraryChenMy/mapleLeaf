@@ -14,6 +14,9 @@
 		},
 		mounted(){
 			this.$store.commit('changeNavbar',0);
+		},
+		beforeDestroyed(){
+			this.$store.commit('changeNavbar',1);
 		}
 	}
 </script>

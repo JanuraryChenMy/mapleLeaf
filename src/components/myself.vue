@@ -15,35 +15,35 @@
 			<router-link tag="div" to="/my/order" class="all-status">全部订单</router-link>
 			<ul>
 				<router-link tag="li" to="/my/order" class="order">
-					<img src="/static/imgs/waite-pay.png">
+					<img src="../assets/waite-pay.png">
 					<div class="order-bottom">
 						待付款
 						<span class="symbol">></span>
 					</div>
 				</router-link>
 				<router-link tag="li" to="/my/order" class="order">
-					<img src="/static/imgs/waite-delivery.png">
+					<img src="../assets/waite-delivery.png">
 					<div class="order-bottom">
 						待发货
 						<span class="symbol">></span>
 					</div>
 				</router-link>
 				<router-link tag="li" to="/my/order" class="order">
-					<img src="/static/imgs/waite-goods.png">
+					<img src="../assets/waite-goods.png">
 					<div class="order-bottom">
 						待收货
 						<span class="symbol">></span>
 					</div>
 				</router-link>
 				<router-link tag="li" to="/my/order" class="order">
-					<img src="/static/imgs/finished.png">
+					<img src="../assets/finished.png">
 					<div class="order-bottom">
 						待评论
 						<span class="symbol">></span>
 					</div>
 				</router-link>
 				<router-link tag="li" to="/my/order" class="order">
-					<img src="/static/imgs/returns.png">
+					<img src="../assets/returns.png">
 					<div class="order-bottom last-bottom">
 						退换货
 						<span class="symbol">></span>
@@ -130,6 +130,7 @@ header{
 	}
 }
 .order-all{
+	overflow: hidden;
 	box-sizing:border-box;
 	width:100%;
 	background:#fff;

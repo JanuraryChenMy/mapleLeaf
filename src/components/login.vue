@@ -2,7 +2,7 @@
 	<div>
 		<header>
 			 <a href="/home" class="header-left">
-			 	<img src="/static/imgs/login_return.png">
+			 	<img src="../assets/home.png">
 			 </a>
 			 <h3 class="header-middle">登录</h3>
 			 <router-link tag="div" to="/my/register" class="header-right">注册</router-link>

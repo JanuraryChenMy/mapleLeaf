@@ -8,7 +8,7 @@
 			<input type="text" name="telephone" placeholder="请输入手机号" class="phone" id="iphone">
 			<div class="password">
 				<input type="password" name="yanzhengma" placeholder="请输入验证码" id="yanzhengma" class="yanzhengma">
-				<img src="/static/imgs/renew.jpg" class="forget">
+				<img src="../assets/renew.jpg" class="forget">
 			</div>
 		</div>
 		<router-link tag="div" id="login-btn" to="/my/login">注册</router-link>
