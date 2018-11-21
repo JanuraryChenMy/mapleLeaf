@@ -5,12 +5,12 @@
 			<input type="text">
 		</div>
 		<ul class="furniture" v-if="isFurnitureShow">
-			<li class="furnitureimg"><img src="../../static/imgs/furniture.png" alt=""></li>
-			<router-link :to="`/classify/catalog/${item.id}`" tag="li" v-for="item in furnitureList" :key="item.id"> {{item.name}} </router-link>
+			<li class="furnitureimg"><img src="../assets/furniture.png" alt=""></li>
+			<router-link :to="`/catalog/${item.id}`" tag="li" v-for="item in furnitureList" :key="item.id"> {{item.name}} </router-link>
 		</ul>
 		<ul class="house" v-if="isHouseShow">
-			<li class="household"><img src="../../static/imgs/household.png" alt=""></li>
-			<router-link :to="`/classify/catalog/${item.id}`" tag="li" v-for="item in houseList" :key="item.id"> {{item.name}} </router-link>
+			<li class="household"><img src="../assets/household.png" alt=""></li>
+			<router-link :to="`/cataog/${item.id}`" tag="li" v-for="item in houseList" :key="item.id"> {{item.name}} </router-link>
 		</ul>
 		<router-view></router-view>
 	</div>
@@ -99,8 +99,8 @@
 		padding:0.14rem;
 		padding-bottom: 0.6rem;
 		.search{
-			padding:0.1rem 0.15rem;
 			position: relative;
+			margin-bottom: 0.1rem;
 			i{
 				font-size:0.16rem;
 				color:black;
@@ -110,8 +110,7 @@
 				margin-right: 0.1rem;
 				height: 0.26rem;
 				line-height:0.31rem;
-				position: absolute;
-				left: 0.1rem 
+				position: absolute; 
 			}
 				
 			input{

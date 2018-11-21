@@ -7,7 +7,6 @@
       <router-link tag="div" to="/message" activeClass="active" class="nav-bar">消息</router-link>
       <router-link tag="div" to="/my" activeClass="active" class="nav-bar" @click="handClick()">我</router-link>
     </nav>
-    <!-- <catalog></catalog> -->
     <router-view></router-view>
   </div>
 </template>
@@ -30,7 +29,7 @@
 //   }
 // }
 
-  // import catalog from './components/catalog'
+  import catalog from './components/catalog'
 export default {
   name: 'App',
   data(){
@@ -38,9 +37,9 @@ export default {
 
     }
   },
-  // components:{
-  //   catalog
-  // }
+  components:{
+    catalog
+  }
 }
 
 </script>

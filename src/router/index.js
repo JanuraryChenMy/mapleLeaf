@@ -61,12 +61,6 @@ export default new Router({
     {
       path: '/classify',
       component: Classify,
-      children:[
-      	{
-      		path:'catalog/:id',
-      		component:Catalog
-      	}
-      ]
     },
     {
       path: '/car',
@@ -132,7 +126,10 @@ export default new Router({
         },
       ]
     },
-    
+    {
+      path:'/catalog/:productId',
+      component:Catalog
+    },
     {
       path: '*',
       redirect:'/home'
