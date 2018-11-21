@@ -5,21 +5,28 @@
       <router-link tag="div" to="/classify" activeClass="active" class="nav-bar">分类</router-link>
       <router-link tag="div" to="/car" activeClass="active" class="nav-bar">购物车</router-link>
       <router-link tag="div" to="/message" activeClass="active" class="nav-bar">消息</router-link>
-      <router-link tag="div" to="/my" activeClass="active" class="nav-bar">我</router-link>
+      <router-link tag="div" to="/my" activeClass="active" class="nav-bar" @click="handClick()">我</router-link>
     </nav>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'App',
-  data(){
-    return{
-
-    }
-  }
-}
+// export default {
+//   name: 'App',
+//   data(){
+//     return{
+//       store.state.show:true,
+//     }
+//   },
+//   methods:{
+//     handClick(){
+//       if(this.store.state.show){
+//         this.store.state.show = !this.store.state.show;
+//       }
+//     }
+//   }
+// }
 </script>
 
 <style lang="scss">

@@ -6,6 +6,17 @@ import Classify from '../components/classify.vue'
 import Car from '../components/car.vue'
 import Message from '../components/message.vue'
 import My from '../components/my.vue'
+import Myself from '../components/myself.vue'
+import Collection from '../components/collection.vue'
+import Coupons from '../components/coupons.vue'
+ 
+
+import Login from '../components/login.vue'
+import Register from '../components/register.vue'
+import Forgetpass from '../components/forgetpass.vue'
+
+import Order from '../components/order.vue'
+import Information from '../components/information.vue'
 
 import Common from '../components/common.vue'
 import Furniture from '../components/furniture.vue'
@@ -27,8 +38,8 @@ export default new Router({
       		component:Common
       	},
       	{
-      		path:'furniture',
-      		component:Furniture
+      		path:'information',
+      		component:Information
       	},
       	{
       		path:'house',
@@ -64,8 +75,47 @@ export default new Router({
     },
     {
       path: '/my',
-      component: My
+      component: My,
+      children:[
+        {
+          path:'login',
+          component:Login,
+        },
+        {
+          path:'register',
+          component:Register
+        },
+        {
+          path:'forgetpass',
+          component:Forgetpass
+        },
+        {
+          path:'myself',
+          component:Myself
+        },
+        {
+          path:'information',
+          component:Information
+        },
+        {
+          path:'collection',
+          component:Collection
+        },
+        {
+          path:'coupons',
+          component:Coupons
+        },
+        {
+          path:'order',
+          component:Order
+        },
+        {
+          path:'',
+          component:Login
+        },
+      ]
     },
+    
     {
       path: '*',
       redirect:'/home'
