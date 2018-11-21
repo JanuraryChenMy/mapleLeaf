@@ -24,7 +24,7 @@
           			<img :src="data.moduleContent.banners[0].bannerImgSrc" class="img2"> 
           		</div>
               <div v-if="products(index)">
-                  bbbbb
+                    <!-- <img v-for="item in datalist3" :src="item." alt=""> -->
               </div>
           	</li>
           </ul>
@@ -45,7 +45,8 @@
 	  	 	return {
 	  	 		isShow:true, 
 	  	 		datalist:[],
-	  	 		datalist2:[]
+	  	 		datalist2:[],
+        
 	  	 	}
 	  	 },
 	  	 mounted(){
@@ -86,6 +87,8 @@
                
            products(index){
                   if(this.datalist2[index].moduleContent.products){
+                     
+
                       return true
                   }else{
                       return false
