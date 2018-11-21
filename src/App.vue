@@ -7,18 +7,23 @@
       <router-link tag="div" to="/message" activeClass="active" class="nav-bar">消息</router-link>
       <router-link tag="div" to="/my" activeClass="active" class="nav-bar">我</router-link>
     </nav>
+    <!-- <catalog></catalog> -->
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+  // import catalog from './components/catalog'
 export default {
   name: 'App',
   data(){
     return{
 
     }
-  }
+  },
+  // components:{
+  //   catalog
+  // }
 }
 </script>
 

@@ -49,7 +49,7 @@ export default new Router({
       component: Classify,
       children:[
       	{
-      		path:'catalog',
+      		path:'catalog/:id',
       		component:Catalog
       	}
       ]
