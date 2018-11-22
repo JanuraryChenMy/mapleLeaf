@@ -1,9 +1,9 @@
 <template>
 	<div>
 		<header>
-			 <a href="/home" class="header-left">
+			 <div  class="header-left" @click="homeClick()">
 			 	<img src="../assets/home.png">
-			 </a>
+			 </div>
 			 <h3 class="header-middle">登录</h3>
 			 <router-link tag="div" to="/my/register" class="header-right">注册</router-link>
 		</header>
@@ -61,6 +61,10 @@
 						this.$router.push('/my/myself');
 					}
 				})
+			},
+			homeClick(){
+				this.$router.push('/home');
+				this.$store.commit('changeNavbar',1);
 			}
 		}
 	}

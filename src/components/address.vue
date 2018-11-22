@@ -7,6 +7,7 @@
 			 <h3 class="header-middle">管理收货地址</h3>
 			 <router-link tag="div" to="/my/information" class="header-right"><img src="../assets/me.png"></router-link>
 		</header>
+		<div class="middle">您还没有收货地址，添加一个吧</div>
 	</div>
 </template>
 
@@ -61,5 +62,9 @@ header{
 			border: 0;
 		}
 	}
+}
+.middle{
+	text-align: center;
+
 }
 </style>

@@ -22,5 +22,8 @@
 </script>
 
 <style lang="scss" scoped>
-	
+	div{
+		height:100%;
+		overflow-x:hidden;
+	}
 </style>

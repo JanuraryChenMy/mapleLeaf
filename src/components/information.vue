@@ -1,40 +1,44 @@
 <template>
-	<div>
+	<div class="box">
 		<header>
-			 <a href="/home" class="header-left">
+			 <div @click="homeClick()" class="header-left">
 			 	<img src="../assets/home.png">
-			 </a>
+			 </div>
 			 <h3 class="header-middle">个人信息</h3>
 			 <router-link tag="div" to="/my/myself" class="header-right"><img src="../assets/me.png"></router-link>
 		</header>
 		<div class="information-all">
 			<div class="name">
-				<span>头像</span>
-				<a href="">
-					<img src="https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLliav3HOMFfLRaddtdtkicT7kOo77fxBOJGaGb8WVub1T9yDXxxZ31hkLIoCmBQKyDB3QwaePhys3A/132">
-					<span class="icon iconfont">></span>
-				</a>
+				<span class="touxiang">头像</span>
+				<span class="userphoto">
+					<label>
+						<input type="file" class="file">
+						<img src="https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLliav3HOMFfLRaddtdtkicT7kOo77fxBOJGaGb8WVub1T9yDXxxZ31hkLIoCmBQKyDB3QwaePhys3A/132">
+						<span class="icon iconfont">></span>
+					</label>
+				</span>
 			</div>
 			<ul>
-				<li><div class="a"><span>昵称</span><span>九歌</span><span>></span></div></li>
+				<li><div class="a"><span>昵称</span><span>{{this.$store.state.isLog.data.username}}</span><span>></span></div></li>
 				<li><div class="a"><span>个性签名</span><span>123</span><span>></span></div></li>
 				<li><div class="a" @click="handleClick()"><span>性别</span><span>女</span><span>></span></div></li>
 				<li><div class="a"><span>年龄段</span><span>95后</span><span>></span></div></li>
 				<li><div class="a"><span>星座</span><span>天蝎座</span><span>></span></div></li>
 				<li><div class="a"><span>职业</span><span>学生</span><span>></span></div></li>
 			</ul>
-			<router-link tag="div" to="/my/address" class="address">
-				<span>收货地址</span>
-				<span>></span>
-			</router-link>
-			<mt-popup v-model="popupVisible" position="bottom" class="popup" >
-				<div class="age-cancel">取消</div>
-				<div class="age-confirm">确认</div>
-				<p>男</p>
-				<p>女</p>
-				<p>保密</p>
-			</mt-popup>
+			
 		</div>
+		<router-link tag="div" to="/my/address" class="address">
+			<span>收货地址</span>
+			<span>></span>
+		</router-link>
+		<mt-popup v-model="popupVisible" position="bottom" class="popup" >
+			<div class="age-cancel">取消</div>
+			<div class="age-confirm">确认</div>
+			<p>男</p>
+			<p>女</p>
+			<p>保密</p>
+		</mt-popup>
 	</div>
 </template>
 
@@ -51,12 +55,23 @@
 		methods:{
 			handleClick(){
 				this.popupVisible = true;
+			},
+			homeClick(){
+				this.$router.push('/home');
+				this.$store.commit('changeNavbar',1);
 			}
+		},
+		mounted(){
+			console.log(this.$store.state.isLog)
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
+.box{
+	background:#f5f5f5;
+	height:100%;
+}
 $nav_Height:0.4rem;
 header{
 	box-sizing:border-box;
@@ -110,43 +125,42 @@ header{
 	background:#fff;
 	padding-left:0.2rem;
 	margin:0.2rem 0;
+	margin-bottom:0.05rem;
 	.name{
-		box-sizing:border-box;
-		width:100%;
-		height:1rem;
-		background:#fff;
-		margin:0.2rem 0;
-		position: relative;
-		padding: 0;
-		border-bottom:0.01rem solid #eaeaea;
-		span{
-			display: inline-block;
-			height:1rem;
-			line-height:1rem;
-			position: relative;
-			top:-0.3rem;
+		position:relative;
+		height:0.75rem;
+		border-bottom:solid 1px #eaeaea;
+		.touxiang{
+			position:absolute;
+			left:0;
+			top:0.325rem;
 		}
-		a{	
-			position: relative;	
-			height: 1rem;
-			line-height:1rem;
-			right:-1.7rem;
-			text-decoration: none;
+		label{
+			position:absolute;
+			right:0.4rem;
+			top:0.125rem;
+			height:0.5rem;
+			width:0.5rem;
 			img{
-				display: inline-block;
-				width:0.6rem;
-				height:0.6rem;
-				margin:0.2rem 0.2rem;
+				width:0.5rem;
+				height:0.5rem;
 				border-radius:50%;
-				position: relative;
-				top:40%;
-				transform: translateY(-50%);
+				position:absolute;
+				left:0;
+				top:0;
 			}
-			.iconfont{
-				color:#ccc;
-				font-size:0.36rem;
+			.file{
+				opacity:0;
+			}
+			span{
+				position:absolute;
+				right:-0.2rem;
+				top:0.15rem;
+				font-size:0.17rem;
+				color:#808080;
 			}
 		}
+		
 	}
 	ul{
 		padding:0;
@@ -179,20 +193,7 @@ header{
 			}
 		}
 	}
-	.address{
-		width:100%;
-		height:0.5rem;
-		line-height:0.5rem;
-		position: relative;
-		background:#fff;
-		margin-bottom:0.2rem;
-		top:0.1rem;
-		span:nth-of-type(2){
-			position: absolute;
-			right:0.2rem;
-			color:#808080;
-		}
-	}
+
 }
 .popup{
 	width:100%;
@@ -210,6 +211,23 @@ header{
 	}
 	p{
 		font-size:30px;
+	}
+}
+.address{
+	width:100%;
+	height:0.5rem;
+	line-height:0.5rem;
+	position: relative;
+	background:#fff;
+	/*margin-bottom:0.2rem;*/
+	top:0.1rem;
+	span{
+		margin-left:0.2rem;
+	}
+	span:nth-of-type(2){
+		position: absolute;
+		right:0.2rem;
+		color:#808080;
 	}
 }
 </style>

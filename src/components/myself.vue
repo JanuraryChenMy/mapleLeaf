@@ -1,9 +1,9 @@
 <template>
-	<div>
+	<div class="box">
 		<header>
-			<a href="/home" class="header-left">
+			<div class="header-left" @click="homeClick()">
 			 	<img src="../assets/home.png">
-			 </a>
+			 </div>
 			 <h3 class="header-middle">我</h3>
 		</header>
 		<router-link tag="div" to="/my/information" class="name">
@@ -81,18 +81,24 @@
 		},
 		methods:{
 			exitClick(){
-				// console.log(1111)
+				console.log(1111)
 				axios.get('api/logout').then((res)=>{
 					if(res.data.state === 0){
 						this.$router.push('/my/login');
+						this.$store.commit('changeLog','')
 					}
 				})
+			},
+			homeClick(){
+				this.$router.push('/home');
+				this.$store.commit('changeNavbar',1);
 			}
 		},
 		mounted(){
 			axios.get('api/login').then((res)=>{
 				console.log(res.data);
 				this.username = res.data.data.username;
+				this.$store.commit('changeLog',res.data)
 			})
 		}
 		
@@ -100,7 +106,11 @@
 </script>
 
 <style lang="scss" scoped>
+
 $nav_Height:0.4rem;
+.box{
+	height:100%;
+}
 header{
 	box-sizing:border-box;
 	height:$nav_Height;
