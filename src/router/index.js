@@ -48,8 +48,8 @@ export default new Router({
       		component:Common
       	},
       	{
-      		path:'information',
-      		component:Information
+      		path:'furniture',
+      		component:Furniture
       	},
       	{
       		path:'house',

@@ -24,20 +24,6 @@
           			<img :src="data.moduleContent.banners[0].bannerImgSrc" class="img2"> 
           		</div>
               <div v-if="products(index)">
-                    <!-- <img v-for="item in datalist3" :src="item." alt=""> -->
-                  <!--   <ul class="ul">
-                      <li >
-                        <img v-for="item in datalist2[index].moduleContent.products" :src="item.productImg" alt="" class="img3">
-                       </li>
-                    </ul> <-->
-              <!--    <div class="module02 swiper-container">
-                     <div class="swiper-wrapper">
-                       <div class="swiper-slide"  v-for="item in datalist2[index].moduleContent.products">
-                         <img :src="item.productImg" alt="" class="img3 ">
-                       
-                       </div>
-                     </div>
-                   </div> -->
                   <div class="module02 swiper-container">
                       <div class="swiper-wrapper">
                         <div class="swiper-slide" v-for="item in datalist2[index].moduleContent.products">
@@ -47,8 +33,6 @@
                         </div>
                         
                       </div>
-                      <!-- Add Pagination -->
-                      <!-- <div class="swiper-pagination"></div> -->
                   </div>
               </div>
           	</li>
@@ -95,7 +79,7 @@
                             prevEl: '.swiper-button-prev',
                           },
                       });
-                    new Swiper('.module02 ',{
+                    new Swiper('.module02',{
                           pagination: {
                             el: '.module02 .swiper-pagination',
                           },
@@ -115,33 +99,35 @@
                   console.log(this.datalist2)
               })
 	  	 },
-       methods:{
-           bigImg(index){
-               if(this.datalist2[index].moduleContent.banners){
+	  
+    methods:{
+        bigImg(index){
+            if(this.datalist2[index].moduleContent.banners){
+                return true
+            }else{
+                return false
+            }
+        },
+            
+        products(index){
+               if(this.datalist2[index].moduleContent.products){
+                  
+
                    return true
                }else{
                    return false
-               }
-           },
-               
-           products(index){
-                  if(this.datalist2[index].moduleContent.products){
-                     
+               } 
+        } 
 
-                      return true
-                  }else{
-                      return false
-                  } 
-           } 
+    }
+  }
+    // computed:{
+    // }
 
-       },
-       // computed:{
-       // }
-
-	  }
 </script>
 
 <style lang="scss" scoped>
+
 	  .img{
 	  	 width:100%;
 	  }
@@ -184,6 +170,7 @@
      }
      .module01{
          border-bottom: 0.2rem solid #F5F5F5;
+         margin-top: 0.02rem;
      }
         
 </style>
