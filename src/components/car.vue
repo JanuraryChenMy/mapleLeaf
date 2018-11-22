@@ -153,7 +153,7 @@ export default {
 						'红色'
 					],
 					price: '349',
-					number: 1
+					number: 8000
 				},
 				{
 					id: 2,
@@ -213,6 +213,9 @@ export default {
 		});
 		this.$store.commit('changeNavbar', 0);
 		window.addEventListener('scroll',this.scrolled);
+		axios.get('/itemdetail/spuInfos/7759?_=1542863104733').then(res=>{
+			console.log(res)
+		})
 	},
 	beforeDestroy(){
 		this.$store.commit('changeNavbar', 1);
