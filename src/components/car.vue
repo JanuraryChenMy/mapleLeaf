@@ -82,7 +82,8 @@ export default {
 			isList: [],
 			page: 1,
 			ins: true,
-			cure: []
+			cure: [],
+			id:14044
 		}
 	},
 	methods: {
@@ -213,8 +214,13 @@ export default {
 		});
 		this.$store.commit('changeNavbar', 0);
 		window.addEventListener('scroll',this.scrolled);
-		axios.get('/itemdetail/spuInfos/7759?_=1542863104733').then(res=>{
-			console.log(res)
+		axios.get(`/recommend/item?skuId=${this.id}&_=1542866639732`).then(res=>{
+			res.data.data.skuInLists.forEach(res=>{
+				if (res.productId === this.id) {
+					console.log(res)
+				}
+			})
+
 		})
 	},
 	beforeDestroy(){

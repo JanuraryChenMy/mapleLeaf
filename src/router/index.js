@@ -28,6 +28,8 @@ import Information from '../components/information.vue'
 import Common from '../components/common.vue'
 import Furniture from '../components/furniture.vue'
 import House from '../components/house.vue'
+import detail from '../components/detail.vue'
+
 import Active from '../components/active.vue'
 
 import Catalog from '../components/catalog.vue'
@@ -68,6 +70,10 @@ export default new Router({
     {
       path: '/classify',
       component: Classify,
+    },
+    {
+      path: '/detail',
+      component: detail,
     },
     {
       path: '/car',
