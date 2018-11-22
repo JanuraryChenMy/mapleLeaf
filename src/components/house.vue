@@ -11,7 +11,7 @@
 		</div> 
 
 
-		<ul>
+		<ul class="ul">
 			<li class="li" v-for="data,index in datalist2">
 			
 				<h3>{{data.moduleContent.name}}</h3>
@@ -195,5 +195,8 @@
 		padding-top: 0.2rem;
 		padding-bottom: 0.1rem;
 		border-bottom: 0.2rem solid #F5F5F5;
+	}
+	.ul{
+		margin-bottom:0.3rem;
 	}
 </style>

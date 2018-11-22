@@ -6,28 +6,24 @@
 		                <img :src="data.bannerImgSrc" class="img" />
 		            </div>
 		        </div>
-		        <!-- 如果需要分页器 -->
 		        <div class="swiper-pagination"></div>
-		        
-		        <!-- 如果需要导航按钮 -->
-		      <!--   <div class="swiper-button-prev"></div>
-		        <div class="swiper-button-next"></div> -->
-		        
-		        <!-- 如果需要滚动条 -->
 		        <div class="swiper-scrollbar"></div>
 		</div>
-          <ul>
-          	<li v-for="data,index in datalist2">
+          <ul class="ul"  v-infinite-scroll="loadMore"
+                          infinite-scroll-disabled="loading"
+                          infinite-scroll-immediate-check="false"
+                           infinite-scroll-distance="0">
+          	<li v-for="data,index in list">
           		<h3>{{data.moduleContent.name}}</h3>
           		<p class="p1">{{data.moduleDescription}}</p>
-          		<div v-if="bigImg(index)">
-          			<img :src="data.moduleContent.banners[0].bannerImgSrc" class="img2"> 
-          		</div>
+          		 <div v-if="bigImg(index)">
+               <img :src="data.moduleContent.banners[0].bannerImgSrc" class="img2" @click="click(data.moduleContent.banners[0].bannerLinkTargetId)"> 
+          		 </div>
               <div v-if="products(index)">
                   <div class="module02 swiper-container">
                       <div class="swiper-wrapper">
-                        <div class="swiper-slide" v-for="item in datalist2[index].moduleContent.products">
-                          <img :src="item.productImg" alt="" class="img3 ">
+                        <div class="swiper-slide" v-for="item in list[index].moduleContent.products">
+                          <img :src="item.productImg" alt="" class="img3" @click="click(item.productId)">
                           <span>{{item.productName}}....</span>
                           <p class="p2">￥{{item.sellPrice}}</p>
                         </div>
@@ -41,6 +37,10 @@
 </template>
 
 <script>
+    import { InfiniteScroll } from 'mint-ui';
+
+    Vue.use(InfiniteScroll);
+
     import Swiper from "swiper";
     import "swiper/dist/css/swiper.css";
     
@@ -57,7 +57,9 @@
 	  	 		isShow:true, 
 	  	 		datalist:[],
 	  	 		datalist2:[],
-          
+          list:[],
+          loading:false,
+          current:9
 	  	 	}
 	  	 },
 	  	 mounted(){
@@ -94,15 +96,17 @@
                   })
 
                   res.data.data.modules.splice(0,1)
-              	 
+              	  
                   this.datalist2 = res.data.data.modules
                   console.log(this.datalist2)
+                  this.list = res.data.data.modules.slice(0,10)
               })
 	  	 },
 	  
     methods:{
+         
         bigImg(index){
-            if(this.datalist2[index].moduleContent.banners){
+            if(this.list[index].moduleContent.banners){
                 return true
             }else{
                 return false
@@ -110,19 +114,51 @@
         },
             
         products(index){
-               if(this.datalist2[index].moduleContent.products){
-                  
-
+               if(this.list[index].moduleContent.products){
+                     // console.log(this.list[index].moduleContent.products)
+                 
                    return true
                }else{
                    return false
                } 
+        },
+        click(id){
+             this.$router.push('/detail/'+id)
+        },
+        click2(id){
+             this.$router.push('/detail/'+id)
+        },
+        loadMore(){
+             
+              for(var i=0;i<11;i++){
+               this.current++
+               this.list.push(this.datalist2[this.current])
+                
+              }
+            
+               console.log(this.list)
+               this.$nextTick(()=>{
+                   new Swiper('.module02',{
+                         pagination: {
+                           el: '.module02 .swiper-pagination',
+                         },
+                         loop: false, // 循环模式选项
+                         slidesPerView: 3,
+                         spaceBetween: 30,
+                         navigation: {
+                           nextEl: '.swiper-button-next',
+                           prevEl: '.swiper-button-prev',
+                         },
+                   })
+                })
+              }
+              
         } 
 
     }
-  }
-    // computed:{
-    // }
+   
+  
+
 
 </script>
 
@@ -175,5 +211,7 @@
          border-bottom: 0.2rem solid #F5F5F5;
          margin-top: 0.02rem;
      }
-        
+     .ul{
+        margin-bottom: 0.3rem;
+     }   
 </style>
