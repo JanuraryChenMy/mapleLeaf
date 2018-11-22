@@ -68,12 +68,15 @@ export default {
     bottom:0;
     left:0;
     background:white;
+    z-index:100;
     .nav-bar{
       flex:1;
       height:100%;
       text-align:center;
       line-height:0.44rem;
       color:#808080;
+      
+
     }
     .active{
       color:#000;

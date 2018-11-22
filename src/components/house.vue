@@ -13,11 +13,14 @@
 
 		<ul>
 			<li class="li" v-for="data,index in datalist2">
+			
 				<h3>{{data.moduleContent.name}}</h3>
 				<p class="p1">{{data.moduleDescription}}</p>
 				<div v-if="bigImg(index)">
 					<img :src="data.moduleContent.banners[0].bannerImgSrc" class="img2"> 
 				</div>
+		
+				
 		    <div v-if="products(index)">
 		        <div class="module02 swiper-container">
 		            <div class="swiper-wrapper">
@@ -30,14 +33,17 @@
 		            </div>
 		        </div>
 		    </div>
+
+          <div v-if="bigImg2(index)">
+            <img v-for="data2 in datalist2[index].moduleContent.banners" :src="data2.bannerImgSrc" alt="" class="img4">
+          	
+          </div>
+        
+        	
+        
+        
 			</li>
 		</ul>  
-        <ul>
-        	<li v-if="length()" class="li2">
-        		<h3>{{datalist3[0].moduleContent.name}}</h3>
-        		<img v-for="data in datalist3[0].moduleContent.banners" :src="data.bannerImgSrc" alt="" class="img4">
-        	</li>
-        </ul>
 	</div>
 </template>
 
@@ -52,8 +58,6 @@
 	  	  	  return {
 	  	  	  	  datalist:[],
 	  	  	  	  datalist2:[],
-	  	  	  	  datalist3:[],
-	  	  	  	  datalist4:[]
 	  	  	  }
 	  	  },
 	  	  mounted(){
@@ -89,12 +93,12 @@
                       });
                  })
                  res.data.data.modules.splice(0,1)
-                 this.datalist4 = res.data.data.modules.slice()
-                 this.datalist3.push(res.data.data.modules[2])
+                 // this.datalist4 = res.data.data.modules.slice()
+                 // this.datalist3.push(res.data.data.modules[2])
                
-                 res.data.data.modules.splice(2,4) 
+                 // res.data.data.modules.splice(2,4) 
                  this.datalist2 = res.data.data.modules
-                 console.log(this.datalist2)
+                 // console.log(this.datalist2)
                  // console.log(this.datalist2)
 	  	     })
 	      },
@@ -102,11 +106,18 @@
 	  methods:{
 	  	  bigImg(index){
 	  	      if(this.datalist2[index].moduleContent.banners){
-	  	          return true
-	  	      }else{
-	  	          return false
+	  	          if(this.datalist2[index].moduleContent.banners.length<3){
+                       return  true
+	  	          }
 	  	      }
 	  	  },
+	  	 bigImg2(index){
+	  	  	  if(this.datalist2[index].moduleContent.banners){
+	  	  	  	if(this.datalist2[index].moduleContent.banners.length>3){
+	  	               return  true
+	  	  	  	 }
+	  	  	  }
+	  	 },
 	  	      
 	  	  products(index){
 	  	         if(this.datalist2[index].moduleContent.products){

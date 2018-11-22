@@ -130,13 +130,16 @@
 
 	  .img{
 	  	 width:100%;
+       z-index: -1;
 	  }
      .img2{
          width:100%;
+         z-index: -1;
      }
      .img3{
          width:100%;
          margin: 0 auto;
+         z-index: -1;
      }
      h3{
         text-align:center;
