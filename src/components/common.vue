@@ -130,12 +130,15 @@
         },
         loadMore(){
              
+              if(this.list.length >= this.datalist2.length){
+                      return
+              }
               for(var i=0;i<11;i++){
                this.current++
                this.list.push(this.datalist2[this.current])
-                
+                                       
               }
-            
+             
                console.log(this.list)
                this.$nextTick(()=>{
                    new Swiper('.module02',{
@@ -148,14 +151,15 @@
                          navigation: {
                            nextEl: '.swiper-button-next',
                            prevEl: '.swiper-button-prev',
-                         },
+                         }
                    })
                 })
-              }
-              
-        } 
+          }
+        }  
 
     }
+                 
+                
    
   
 
