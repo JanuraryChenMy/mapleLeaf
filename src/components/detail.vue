@@ -1,6 +1,7 @@
 <template>
 	<div>
-		<div class="title">
+		<div class="title_zhanwei"></div>
+		<div :class="title_class">
 			<router-link to="/" tag="span">主页</router-link>
 			<span>商品详情</span>
 			<span>搜索</span>
@@ -29,6 +30,7 @@
 			<li>立即购买</li>
 			<li @click="gogogo">加入购物车</li>
 		</ul>
+		<div class="zhanwei"></div>
 	</div>
 </template>
 
@@ -43,14 +45,30 @@ export default {
 			itemDetailIntroVoList: null,
 			itemSizeImgVoList: null,
 			productCommentList: null,
+			title_class: 'title'
 		}
 	},
 	methods:{
 		gogogo(){
-			
+			// axios.get()
+		},
+		flex(){
+			var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+			var scrollHeight = document.documentElement.scrollHeight||document.body.scrollHeight;
+			var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+			  // console.log(scrollTop,scrollHeight,windowHeight);
+			if (scrollTop >= windowHeight-100) {
+				
+				this.title_class = 'title'
+			}
+			if (scrollTop < windowHeight-100){
+				console.log(555)
+				this.title_class = 'title2'
+			}
 		}
 	},
 	mounted(){
+		window.addEventListener('scroll',this.flex);
 		axios.get(`/recommend/item?skuId=${this.id}&_=1542866639732`).then(ress=>{
 			// console.log(ress)
 			ress.data.data.skuInLists.forEach(res=>{
@@ -79,11 +97,33 @@ export default {
 
 .title{
 	display: flex;
+	position: fixed;
+	top: 0;
+	width: 100%;
 	justify-content: space-between;
 	line-height: 43px;
+	box-sizing: border-box;
 	border-bottom: 1px solid #eee;
 	padding: 0 15px;
-
+	z-index: 10px;
+	background: rgba(255,255,255,0.8);
+}
+.title2{
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	line-height: 43px;
+	box-sizing: border-box;
+	border-bottom: 1px solid #eee;
+	padding: 0 15px;
+	z-index: 10px;
+	position: absolute;
+	top: 0;
+	background: rgba(255,255,255,0.8);
+}
+.title_zhanwei{
+	height: .43rem;
+	width: 100%;
 }
 .title_img{
 	width: 100%;
@@ -133,6 +173,9 @@ export default {
 	justify-content: space-between;
 	width: 100%;
 	height: .44rem;
+	position: fixed;
+	bottom: 0;
+	background-color: #fff;
 	li{
 		width: 1.25rem;
 		text-align:center;
@@ -151,4 +194,11 @@ export default {
 	}
 }
 
+
+
+
+.zhanwei{
+	width: 100%;
+	height: .44rem;
+}
 </style>

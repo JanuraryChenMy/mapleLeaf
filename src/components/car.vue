@@ -126,7 +126,7 @@ export default {
 			var scrollHeight = document.documentElement.scrollHeight||document.body.scrollHeight;
 			var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
 			  // console.log(scrollTop,scrollHeight,windowHeight);
-			if (scrollTop + windowHeight >= scrollHeight-40) {
+			if (scrollTop + windowHeight >= scrollHeight) {
 				console.log('到底了，正在发送ajax');
 				this.page++
 				axios.get(`/recommend/cart?currentPage=${this.page}&_=1542845286709`).then(res=>{
@@ -134,8 +134,6 @@ export default {
 						res.data.data.forEach(data=>{
 							this.cure.push(data)
 						})
-						
-					
 				})
 			}
 		}
