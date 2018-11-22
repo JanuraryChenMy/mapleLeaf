@@ -1,6 +1,9 @@
 <template>
 	<div>
 		<header>
+			<a href="/home" class="header-left">
+			 	<img src="../assets/home.png">
+			 </a>
 			 <h3 class="header-middle">我</h3>
 		</header>
 		<router-link tag="div" to="/my/information" class="name">
@@ -12,37 +15,37 @@
 			<span class="icon iconfont you">></span>
 		</router-link>
 		<div class="order-all">
-			<router-link tag="div" to="/my/order" class="all-status">全部订单</router-link>
+			<router-link tag="div" to="/my/order/orderall" class="all-status">全部订单</router-link>
 			<ul>
-				<router-link tag="li" to="/my/order" class="order">
+				<router-link tag="li" to="/my/order/orderpay" class="order">
 					<img src="../assets/waite-pay.png">
 					<div class="order-bottom">
 						待付款
 						<span class="symbol">></span>
 					</div>
 				</router-link>
-				<router-link tag="li" to="/my/order" class="order">
+				<router-link tag="li" to="/my/order/orderdelivery" class="order">
 					<img src="../assets/waite-delivery.png">
 					<div class="order-bottom">
 						待发货
 						<span class="symbol">></span>
 					</div>
 				</router-link>
-				<router-link tag="li" to="/my/order" class="order">
+				<router-link tag="li" to="/my/order/orderreceived" class="order">
 					<img src="../assets/waite-goods.png">
 					<div class="order-bottom">
 						待收货
 						<span class="symbol">></span>
 					</div>
 				</router-link>
-				<router-link tag="li" to="/my/order" class="order">
+				<router-link tag="li" to="/my/order/ordercomment" class="order">
 					<img src="../assets/finished.png">
 					<div class="order-bottom">
 						待评论
 						<span class="symbol">></span>
 					</div>
 				</router-link>
-				<router-link tag="li" to="/my/order" class="order">
+				<router-link tag="li" to="/my/exitgood" class="order">
 					<img src="../assets/returns.png">
 					<div class="order-bottom last-bottom">
 						退换货
@@ -91,6 +94,22 @@ header{
 	padding:0 0 0 0.1rem;
 	border-bottom:0.01rem solid #f5f5f5;
 	position: relative;
+	.header-left{
+		display: inline-block;
+		width:0.32rem;
+		height:0.32rem;
+		line-height:0.25rem;
+		position: absolute;
+		left:0.1rem;
+		top:50%;
+		transform: translateY(-50%);
+		img{
+			display: block;
+			width:0.26rem;
+			margin:0.03rem 0;
+			border: 0;
+		}
+	}
 	.header-middle{
 		position: absolute;
 		height:$nav_Height;

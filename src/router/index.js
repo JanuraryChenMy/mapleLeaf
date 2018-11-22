@@ -10,7 +10,6 @@ import Myself from '../components/myself.vue'
 import Collection from '../components/collection.vue'
 import Coupons from '../components/coupons.vue'
  
-
 import Login from '../components/login.vue'
 import Register from '../components/register.vue'
 import Forgetpass from '../components/forgetpass.vue'
@@ -22,6 +21,10 @@ import Ordercomment from '../components/ordercomment.vue'
 import Orderdelivery from '../components/orderdelivery.vue'
 import Orderpay from '../components/orderpay.vue'
 import Orderreceived from '../components/orderreceived.vue'
+
+import Exitgood from '../components/exitgood.vue'
+
+import Address from '../components/address.vue'
 
 import Information from '../components/information.vue'
 
@@ -154,6 +157,14 @@ export default new Router({
               component:Orderreceived,
             }
           ]
+        },
+        {
+          path:'exitgood',
+          component:Exitgood
+        },
+        {
+          path:'address',
+          component:Address
         },
         {
           path:'',

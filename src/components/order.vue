@@ -2,7 +2,7 @@
 	<div>
 		<header>
 			 <router-link tag="div" to="/my/myself" class="header-left">
-			 	
+			 	<
 			 </router-link>
 			 <h3 class="header-middle">我的订单</h3>
 			 <router-link tag="div" to="/home" class="header-right">
@@ -12,11 +12,11 @@
 		<div id="leftTabBox" class="tabBox">
             <div class="hd">
                 <ul>
-                    <router-link to="" tag="li" activeClass="active">全部</router-link>
-                    <router-link to="" tag="li" activeClass="active">待付款</router-link>
-                    <router-link to="" tag="li" activeClass="active">待发货</router-link>
-                    <router-link to="" tag="li" activeClass="active">待发货</router-link>
-                    <router-link to="" tag="li" activeClass="active">待评论</router-link>
+                    <router-link to="/my/order/orderall" tag="li" activeClass="active">全部</router-link>
+                    <router-link to="/my/order/orderpay" tag="li" activeClass="active">待付款</router-link>
+                    <router-link to="/my/order/orderdelivery" tag="li" activeClass="active">待发货</router-link>
+                    <router-link to="/my/order/orderreceived" tag="li" activeClass="active">待收货</router-link>
+                    <router-link to="/my/order/ordercomment" tag="li" activeClass="active">待评论</router-link>
                 </ul>
                 <router-view></router-view>
             </div>
@@ -118,7 +118,7 @@ header{
 		}
 	}
 }
-.special{
+.active{
 	border-bottom:0.02rem solid #000;
 }
 </style>

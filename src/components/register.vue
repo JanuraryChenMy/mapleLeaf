@@ -5,10 +5,10 @@
 			 <router-link tag="div" to="/my/login" class="register-right">登录</router-link>
 		</header>
 		<div id="leftTabBox" class="tabBox">
+			<input type="text" name="telephone" placeholder="请输入用户名" class="phone" id="iphone">
 			<input type="text" name="telephone" placeholder="请输入手机号" class="phone" id="iphone">
 			<div class="password">
-				<input type="password" name="yanzhengma" placeholder="请输入验证码" id="yanzhengma" class="yanzhengma">
-				<img src="../assets/renew.jpg" class="forget">
+				<input type="password" name="yanzhengma" placeholder="请输入密码" id="yanzhengma" class="yanzhengma">
 			</div>
 		</div>
 		<router-link tag="div" id="login-btn" to="/my/login">注册</router-link>
@@ -74,20 +74,8 @@ $nav_Height:0.4rem;
 			font-size:0.18rem;
 			color:#000;
 			float:left;
-			width:1rem;
+			width:100%;
 		}
-		.forget{
-			border:0;
-			height:0.4rem;
-			line-height: 0.4rem;
-			font-size:0.18rem;
-			color:#000;
-			position: relative;
-			right:-0.2rem;
-			background:#fff;
-			width:1rem;
-		}
-
 	}
 }
 #login-btn{
@@ -102,7 +90,7 @@ $nav_Height:0.4rem;
 	height:$nav_Height;
 	line-height:$nav_Height;
 	background:#ffd444;
-	top:1.59rem;
+	top:2rem;
 	left:50%;
 	transform: translateX(-50%);
 	text-align: center;
