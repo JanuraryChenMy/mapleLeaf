@@ -39,7 +39,7 @@ import axios from "axios"
 export default {
 	data(){
 		return{
-			id: 14044,
+			id: null,
 			dataList: [],
 			parentProductId: null,
 			itemDetailIntroVoList: null,
@@ -69,22 +69,26 @@ export default {
 	},
 	mounted(){
 		window.addEventListener('scroll',this.flex);
-		axios.get(`/recommend/item?skuId=${this.id}&_=1542866639732`).then(ress=>{
-			// console.log(ress)
-			ress.data.data.skuInLists.forEach(res=>{
-				if (res.productId === this.id) {
-					console.log(res)
-					this.dataList = res;
-					this.parentProductId = res.parentProductId;
-					axios.get(`/itemdetail/spuInfos/${this.parentProductId}?_=1542866639726`).then(res=>{
-						this.itemDetailIntroVoList = res.data.data.itemDetailIntroVoList;
-						this.itemSizeImgVoList = res.data.data.itemSizeImgVoList;
-						this.productCommentList = res.data.data.productCommentList;
-					});
-				}
-			})
+		this.id = Number(this.$route.params.id);
 
-		});
+		if (this.id) {
+			axios.get(`/recommend/item?skuId=${this.id}&_=1542866639732`).then(ress=>{
+				console.log(ress)
+				ress.data.data.skuInLists.forEach(res=>{
+					if (res.productId === this.id) {
+						console.log(res)
+						this.dataList = res;
+						this.parentProductId = res.parentProductId;
+						axios.get(`/itemdetail/spuInfos/${this.parentProductId}?_=1542866639726`).then(res=>{
+							this.itemDetailIntroVoList = res.data.data.itemDetailIntroVoList;
+							this.itemSizeImgVoList = res.data.data.itemSizeImgVoList;
+							this.productCommentList = res.data.data.productCommentList;
+						});
+					}
+				})
+
+			});
+		}
 		this.$store.commit('changeNavbar', 0);
 	},
 	beforeDestroy(){
