@@ -6,7 +6,8 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
 	state:{
-		show:true
+		show:true,
+		msgType:1
 	},
 	actions:{
 
@@ -18,6 +19,9 @@ const store = new Vuex.Store({
 			} else{
 				state.show = true;
 			}
+		},
+		changeMessage(state,payload){
+			state.msgType = payload;
 		}
 	}
 })
