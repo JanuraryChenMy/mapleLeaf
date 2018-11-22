@@ -18,7 +18,7 @@
 			<ul>
 				<li><div class="a"><span>昵称</span><span>九歌</span><span>></span></div></li>
 				<li><div class="a"><span>个性签名</span><span>123</span><span>></span></div></li>
-				<li><div class="a"><span>性别</span><span>女</span><span>></span></div></li>
+				<li><div class="a" @click="handleClick()"><span>性别</span><span>女</span><span>></span></div></li>
 				<li><div class="a"><span>年龄段</span><span>95后</span><span>></span></div></li>
 				<li><div class="a"><span>星座</span><span>天蝎座</span><span>></span></div></li>
 				<li><div class="a"><span>职业</span><span>学生</span><span>></span></div></li>
@@ -27,12 +27,33 @@
 				<span>收货地址</span>
 				<span>></span>
 			</router-link>
+			<mt-popup v-model="popupVisible" position="bottom" class="popup" >
+				<div class="age-cancel">取消</div>
+				<div class="age-confirm">确认</div>
+				<p>男</p>
+				<p>女</p>
+				<p>保密</p>
+			</mt-popup>
 		</div>
 	</div>
 </template>
 
 <script>
-	
+	export default {
+		name:'information',
+		data(){
+			return {
+				popupVisible:false,
+				closeOnClickModal:true,
+				
+			}
+		},
+		methods:{
+			handleClick(){
+				this.popupVisible = true;
+			}
+		}
+	}
 </script>
 
 <style lang="scss" scoped>
@@ -171,6 +192,24 @@ header{
 			right:0.2rem;
 			color:#808080;
 		}
+	}
+}
+.popup{
+	width:100%;
+	height:2.5rem;
+	background:yellow;
+	.age-cancel{
+		position:absolute;
+		left:0.1rem;
+		top:0.1rem;
+	}
+	.age-confirm{
+		position:absolute;
+		right:0.1rem;
+		top:0.1rem;
+	}
+	p{
+		font-size:30px;
 	}
 }
 </style>
