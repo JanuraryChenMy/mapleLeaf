@@ -55,67 +55,34 @@
 		</div>
 		<p class="pp">-&nbsp;为您推荐&nbsp;-</p>
 		<ul class="cureList">
-			<router-link to="" tag="li" v-for="data,index in cure" :key="data.id">
-				<div class="img">
-					<img src="data.img">
-				</div>
-				<p>{{data.name}}</p>
-				<p>￥{{data.price}}</p>
-				<p>{{data.what}}</p>
-			</router-link>
+			<transition-group appear name="slide-fade" >
+				<router-link to="" tag="li" v-for="data,index in cure" :key="data.productId">
+					<div class="img">
+						<img :src="data.productImg">
+					</div>
+					<p>{{data.productTitle}}</p>
+					<p>￥{{data.originalPrice}}</p>
+					<p>{{data.prizeOrSlogan}}</p>
+				</router-link>
+			</transition-group>
 		</ul>
+		<p>正在加载...</p>
 		<div class="zhanwei"></div>
 	</div>
 </transition>
 </template>
 
 <script>
-
+import axios from "axios"
 export default {
 	name: 'car',
 	data(){
 		return{
 			dataList: [],
 			isList: [],
+			page: 1,
 			ins: true,
-			cure: [
-				{
-					name: 'fdsgag',
-					img: 'fdsfasf',
-					price: 888,
-					what: "dsfsfasdf"
-				},
-				{
-					name: 'fdsgag',
-					img: 'fdsfasf',
-					price: 888,
-					what: "dsfsfasdf"
-				},
-				{
-					name: 'fdsgag',
-					img: 'fdsfasf',
-					price: 888,
-					what: "dsfsfasdf"
-				},
-				{
-					name: 'fdsgag',
-					img: 'fdsfasf',
-					price: 888,
-					what: "dsfsfasdf"
-				},
-				{
-					name: 'fdsgag',
-					img: 'fdsfasf',
-					price: 888,
-					what: "dsfsfasdf"
-				},
-				{
-					name: 'fdsgag',
-					img: 'fdsfasf',
-					price: 888,
-					what: "dsfsfasdf"
-				}
-			]
+			cure: []
 		}
 	},
 	methods: {
@@ -153,6 +120,24 @@ export default {
 		},
 		whatIns(){
 			this.ins = !this.ins;
+		},
+		scrolled(){
+			var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+			var scrollHeight = document.documentElement.scrollHeight||document.body.scrollHeight;
+			var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+			  // console.log(scrollTop,scrollHeight,windowHeight);
+			if (scrollTop + windowHeight >= scrollHeight-40) {
+				console.log('到底了，正在发送ajax');
+				this.page++
+				axios.get(`/recommend/cart?currentPage=${this.page}&_=1542845286709`).then(res=>{
+					console.log(res);
+						res.data.data.forEach(data=>{
+							this.cure.push(data)
+						})
+						
+					
+				})
+			}
 		}
 	},
 	mounted(){
@@ -219,11 +204,21 @@ export default {
 					number: 5
 				}
 			]
-		},500),
-		this.$store.commit('changeNavbar', 0)
+		},500);
+		axios.get(`/recommend/cart?currentPage=1&_=1542845286709`).then(res=>{
+			// console.log(this.cure);
+			res.data.data.forEach(data=>{
+				this.cure.push(data)
+			});
+		});
+		this.$store.commit('changeNavbar', 0);
+		window.addEventListener('scroll',this.scrolled);
 	},
 	beforeDestroy(){
-		this.$store.commit('changeNavbar', 1)
+		this.$store.commit('changeNavbar', 1);
+	},
+	destroyed () {
+	  window.removeEventListener('scroll', this.scrolled)
 	},
 	computed:{
 		isAll:{
@@ -257,7 +252,8 @@ export default {
 			}else{
 				return "完成";
 			}
-		}
+		},
+
 	}
 };
 
@@ -384,8 +380,16 @@ button{
 	li{
 		width: 50%;
 		height: 2.7rem;
-		background-color: red;
 		float: left;
+		box-sizing: border-box;
+		font-size: 12px;
+		border: .1px solid #eee;
+		padding-left: 5px;
+		img{
+			width: 100%;
+			height: 100%;
+			display: block;
+		}
 	}
 }
 .cureList:before{
