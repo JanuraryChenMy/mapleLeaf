@@ -1,5 +1,6 @@
 <template>
 	<div>
+   
 		<div class="module01 swiper-container">
 		        <div class="swiper-wrapper">
 		            <div class="swiper-slide" v-for="data in datalist" :key="data.id">
@@ -33,6 +34,9 @@
               </div>
           	</li>
           </ul>
+           <div>
+               <button type="button" class="back-top small" @click="backTop()" v-show="backTopShow">返回顶部</button>
+          </div> 
 	</div>
 </template>
 
@@ -59,10 +63,14 @@
 	  	 		datalist2:[],
           list:[],
           loading:false,
-          current:9
+          current:9,
+          backTopShow:false
 	  	 	}
 	  	 },
+       components: {},
 	  	 mounted(){
+              window.addEventListener('scroll', this.handleScroll),
+
               axios.get('/v2/page?pageId=1&tabId=1&_=1542764728181').then(res=>{
               	  // console.log(res.data.data.modules[2].moduleContent.banners)
               	  this.datalist = res.data.data.modules[0].moduleContent.banners
@@ -101,10 +109,31 @@
                   console.log(this.datalist2)
                   this.list = res.data.data.modules.slice(0,10)
               })
+            
 	  	 },
 	  
     methods:{
-         
+         backTop() {
+                 let back = setInterval(() => {
+                   if(document.body.scrollTop||document.documentElement.scrollTop){
+                     document.body.scrollTop-=100;
+                     document.documentElement.scrollTop-=100;
+                   }else {
+                     clearInterval(back)
+                   }
+                 });
+               },
+          handleScroll(){
+                 if (document.documentElement.scrollTop + document.body.scrollTop > 100) {
+                   this.backTopShow=true;
+                 }
+                 else {
+                   this.backTopShow=false;
+                 }
+         },
+            
+        
+
         bigImg(index){
             if(this.list[index].moduleContent.banners){
                 return true
@@ -218,4 +247,16 @@
      .ul{
         margin-bottom: 0.3rem;
      }   
+     .back-top {
+
+         width:0.35rem;
+         height:0.35rem;
+         background:#F5F5F5;
+         z-index:100;
+         border-radius: 100%;
+         position: fixed;
+         right:0.3rem;
+         bottom: 1rem;
+         outline:none;
+     }
 </style>

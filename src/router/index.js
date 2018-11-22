@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // import HelloWorld from '@/components/HelloWorld'
 import Home from '../components/home.vue'
+import Search from '../components/search.vue'
 import Classify from '../components/classify.vue'
 import Car from '../components/car.vue'
 import Message from '../components/message.vue'
@@ -69,6 +70,10 @@ export default new Router({
       		component:Common
       	}
       ]
+    },
+    {
+      path: '/search',
+      component: Search
     },
     {
       path: '/classify',

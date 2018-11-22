@@ -10,7 +10,7 @@
 		          <li class="search">
 
 		          	<span class="tubiao"><i class="iconfont icon-originalimage"></i></span>
-		          	<input class="input" type="text" placeholder="搜索我的尖叫好物">
+		          	<input class="input" type="text" placeholder="搜索我的尖叫好物" @click="search">
 		          </li>
 		     </ul>
 		</header>
@@ -35,6 +35,9 @@
 			}
 		},
 		methods:{
+			search(){
+				 this.$router.push('/search')
+			}
 		}
 	}
 </script>
