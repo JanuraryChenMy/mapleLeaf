@@ -33,15 +33,36 @@
 		},
 		methods:{
 			checkUser(){
-				// axios.post('').then((res)=>{
-
-				// })
+				var reg = /^[\u4e00-\u9fa50-9a-zA-Z_]{4,10}$/
+				if(reg.test(this.username)){
+					this.uc = true;
+				} else{
+					this.uc = false;
+					Toast({
+						message:'用户名长度4-10位，仅包含中文，数字，字母，下划线。',
+						position:'bottom',
+						duration:1000
+					})
+				}
 			},
 			checkPhone(){
 				var reg = /^1[34578]\d{9}$/;
 				if(reg.test(this.phone)){
 					// console.log(1111);
-					this.pc = true;
+					axios.post('/api/register/check',{phone:this.phone}).then((res)=>{
+						if(res.data.state === 1){
+							// console.log(true,res)
+							this.pc = true;
+						} else if(res.data.state === 0) {
+							// console.log(false)
+							this.pc = false;
+							Toast({
+								message: '手机已注册过',
+								position: 'bottom',
+								duration: 1000
+							});
+						}
+					})
 				} else{
 					this.pc = false;
 					Toast({
@@ -68,7 +89,10 @@
 			commitClick(){
 				if(this.pc && this.uc && this.pwc){
 					axios.post('/api/register',{username:this.username,phone:this.phone,password:this.password}).then((res)=>{
-						console.log(res)
+						// console.log(res);
+						if(res.data.state === 2){
+							this.$router.push('/my/login');
+						}
 					})
 				}
 			}

@@ -64,23 +64,38 @@
 				</li>
 			</ul>
 		</div>
-		<router-link tag="div" to="/my/login" class="exit">退出登录</router-link>
+		<!-- <router-link tag="div" to="/my/login" class="exit">退出登录</router-link> -->
+		<div class="exit" @click="exitClick()">退出登录</div>
 	</div>
 </template>
 
 <script>
+	import axios from 'axios'
 	export default{
+		name:'myself',
 		data(){
 			return{
 				username:"nine",
 				usershow:"123"
 			}
+		},
+		methods:{
+			exitClick(){
+				// console.log(1111)
+				axios.get('api/logout').then((res)=>{
+					if(res.data.state === 0){
+						this.$router.push('/my/login');
+					}
+				})
+			}
+		},
+		mounted(){
+			axios.get('api/login').then((res)=>{
+				console.log(res.data);
+				this.username = res.data.data.username;
+			})
 		}
-		// MessageBox({
-		// 	title: '提示',
-		// 	message: '要打开选取应用吗?',
-		// 	showCancelButton: true
-		// });
+		
 	}
 </script>
 

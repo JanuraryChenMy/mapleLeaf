@@ -10,8 +10,8 @@
 				<input type="password" name="yanzhengma" placeholder="请输入验证码" id="yanzhengma" class="yanzhengma">
 				<div class="forget">获取验证码</div>
 			</div>
-			<input type="text" name="telephone" placeholder="设置密码（6-20位）" class="phone" id="iphone">
-			<input type="text" name="telephone" placeholder="再输入一次" class="phone" id="iphone">
+			<input type="text" name="telephone" placeholder="设置密码（6-20位）" class="phone" id="pw">
+			<input type="text" name="telephone" placeholder="再输入一次" class="phone" id="cpw">
 		</div>
 		<router-link tag="div" id="login-btn" to="/my/login">确认</router-link>
 	</div>

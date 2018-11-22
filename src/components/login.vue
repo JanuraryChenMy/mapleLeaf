@@ -8,14 +8,15 @@
 			 <router-link tag="div" to="/my/register" class="header-right">注册</router-link>
 		</header>
 		<div id="leftTabBox" class="tabBox">
-			<input type="text" name="telephone" placeholder="请输入手机号" class="phone" id="iphone">
+			<input type="text" name="telephone" placeholder="请输入手机号" class="phone" id="iphone" v-model="phone">
 			<div class="password">
-				<input type="password" name="yanzhengma" placeholder="请输入密码" id="yanzhengma" class="yanzhengma">
+				<input type="password" name="yanzhengma" placeholder="请输入密码" id="yanzhengma" class="yanzhengma" v-model="password">
 				<router-link tag="div" to="/my/forgetpass" class="forget">忘记密码?</router-link>
 			</div>
 		</div>
 		<input type="button" id="login-btn" name="submit" value="确认">
-		<router-link tag="div" id="login-btn" to="/my/myself">确认</router-link>
+		<!-- <router-link tag="div" id="login-btn" to="/my/myself">确认</router-link> -->
+		<button id="login-btn" @click="commitClick()">确认</button>
 		<div class="bottom">
 			<div class="month">
 				<input type="radio" name="icon" class="yes">
@@ -27,7 +28,42 @@
 </template>
 
 <script>
-	
+	import axios from 'axios'
+	import { Toast } from 'mint-ui'
+	export default {
+		name:'login',
+		data(){
+			return {
+				phone:'',
+				password:''
+			}
+		},
+		methods:{
+			commitClick(){
+				axios.post('api/login',{phone:this.phone,password:this.password}).then((res)=>{
+					// console.log(res);
+					if(res.data.state === 0){
+						//用户名不存在
+						Toast({
+							message:'用户名不存在',
+							position:'bottom',
+							duration:1000
+						})
+					} else if(res.data.state === 1){
+						//密码错误
+						Toast({
+							message:'用户名，密码不正确',
+							position:'bottom',
+							duration:1000
+						})
+					} else if(res.data.state === 2){
+						//密码正确
+						this.$router.push('/my/myself');
+					}
+				})
+			}
+		}
+	}
 </script>
 
 <style lang="scss" scoped>

@@ -7,7 +7,8 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
 	state:{
 		show:true,
-		msgType:1
+		msgType:1,
+		isLog:''
 	},
 	actions:{
 
@@ -22,6 +23,9 @@ const store = new Vuex.Store({
 		},
 		changeMessage(state,payload){
 			state.msgType = payload;
+		},
+		changeLog(state,payload){
+			state.isLog = payload;
 		}
 	}
 })
