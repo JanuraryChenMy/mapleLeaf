@@ -82,8 +82,7 @@ export default {
 			isList: [],
 			page: 1,
 			ins: true,
-			cure: [],
-			id:14044
+			cure: []
 		}
 	},
 	methods: {
@@ -214,14 +213,7 @@ export default {
 		});
 		this.$store.commit('changeNavbar', 0);
 		window.addEventListener('scroll',this.scrolled);
-		axios.get(`/recommend/item?skuId=${this.id}&_=1542866639732`).then(res=>{
-			res.data.data.skuInLists.forEach(res=>{
-				if (res.productId === this.id) {
-					console.log(res)
-				}
-			})
 
-		})
 	},
 	beforeDestroy(){
 		this.$store.commit('changeNavbar', 1);
