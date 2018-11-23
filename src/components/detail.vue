@@ -73,16 +73,33 @@ export default {
 
 		if (this.id) {
 			axios.get(`/recommend/item?skuId=${this.id}&_=1542866639732`).then(ress=>{
-				console.log(ress)
+				// console.log(ress);
 				ress.data.data.skuInLists.forEach(res=>{
 					if (res.productId === this.id) {
-						console.log(res)
+						// console.log(res)
+
+						
+
 						this.dataList = res;
 						this.parentProductId = res.parentProductId;
 						axios.get(`/itemdetail/spuInfos/${this.parentProductId}?_=1542866639726`).then(res=>{
 							this.itemDetailIntroVoList = res.data.data.itemDetailIntroVoList;
 							this.itemSizeImgVoList = res.data.data.itemSizeImgVoList;
 							this.productCommentList = res.data.data.productCommentList;
+							console.log(this.dataList)
+							console.log(this.itemDetailIntroVoList)
+							// console.log(str.lastIndexOf(this.dataList.productTitle))
+							axios.post(`/api/product`,{
+								shopTitle: this.dataList,
+								shopInformation: this.itemDetailIntroVoList
+							}).then(res=>{
+								console.log('Ajax发送成功');
+								console.log(res);
+								// alert(res.data.state)
+							}).catch(res=>{
+								console.log(res);
+							})
+
 						});
 					}
 				})

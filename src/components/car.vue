@@ -56,14 +56,14 @@
 		<p class="pp">-&nbsp;为您推荐&nbsp;-</p>
 		<ul class="cureList">
 			<transition-group appear name="slide-fade" >
-				<router-link to="" tag="li" v-for="data,index in cure" :key="data.productId">
+				<li @click="tuijianlianjie(data.productId)" v-for="data,index in cure" :key="data.productId">
 					<div class="img">
 						<img :src="data.productImg">
 					</div>
 					<p>{{data.productTitle}}</p>
 					<p>￥{{data.originalPrice}}</p>
 					<p>{{data.prizeOrSlogan}}</p>
-				</router-link>
+				</li>
 			</transition-group>
 		</ul>
 		<p>正在加载...</p>
@@ -94,6 +94,9 @@ export default {
 		},
 		submilt(){
 
+		},
+		tuijianlianjie(id){
+			this.$router.push("/detail/" + id)
 		},
 		deleteLi(){
 			if (this.dataList.length === this.isList.length) {
@@ -130,15 +133,19 @@ export default {
 				console.log('到底了，正在发送ajax');
 				this.page++
 				axios.get(`/recommend/cart?currentPage=${this.page}&_=1542845286709`).then(res=>{
-					console.log(res);
+					// console.log(res);
 						res.data.data.forEach(data=>{
 							this.cure.push(data)
 						})
+					// console.log(this.cure);
 				})
 			}
 		}
 	},
 	mounted(){
+		if (!this.$store.state.isLog) {
+			this.$router.push('/my/login');
+		}
 		setTimeout(()=>{
 			this.dataList = [
 				{
