@@ -62,8 +62,8 @@ module.exports = {
             }
         },
         '/api':{
-            target:'http://10.2.157.8:3000',
-            host:'10.2.157.8:3000',
+            target:'http://10.2.157.37:3000',
+            host:'10.2.157.37:3000',
             changeOrigin:true
         }
 

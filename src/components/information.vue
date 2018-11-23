@@ -12,7 +12,7 @@
 				<span class="touxiang">头像</span>
 				<span class="userphoto">
 					<label>
-						<input type="file" class="file">
+						<input type="file" class="file" >
 						<img src="https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLliav3HOMFfLRaddtdtkicT7kOo77fxBOJGaGb8WVub1T9yDXxxZ31hkLIoCmBQKyDB3QwaePhys3A/132">
 						<span class="icon iconfont">></span>
 					</label>
@@ -48,8 +48,7 @@
 		data(){
 			return {
 				popupVisible:false,
-				closeOnClickModal:true,
-				
+				closeOnClickModal:true
 			}
 		},
 		methods:{
