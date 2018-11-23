@@ -3,6 +3,7 @@ import Router from 'vue-router'
 // import HelloWorld from '@/components/HelloWorld'
 import Home from '../components/home.vue'
 import Search from '../components/search.vue'
+import Result from '../components/result.vue'
 import Classify from '../components/classify.vue'
 import Car from '../components/car.vue'
 import Message from '../components/message.vue'
@@ -72,9 +73,13 @@ export default new Router({
       ]
     },
     {
-      path: '/search',
-      component: Search
+      path: '/search:id',
+      component: Search,
     },
+    {
+      path:'/result',
+      component:Result 
+    },      
     {
       path: '/classify',
       component: Classify,

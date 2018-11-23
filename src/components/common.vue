@@ -13,7 +13,7 @@
           <ul class="ul"  v-infinite-scroll="loadMore"
                           infinite-scroll-disabled="loading"
                           infinite-scroll-immediate-check="false"
-                           infinite-scroll-distance="0">
+                          infinite-scroll-distance="0">
           	<li v-for="data,index in list">
           		<h3>{{data.moduleContent.name}}</h3>
           		<p class="p1">{{data.moduleDescription}}</p>
@@ -251,7 +251,8 @@
 
          width:0.35rem;
          height:0.35rem;
-         background:#F5F5F5;
+         background:black;
+         color:white;
          z-index:100;
          border-radius: 100%;
          position: fixed;
