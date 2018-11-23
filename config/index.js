@@ -65,6 +65,11 @@ module.exports = {
             target:'http://10.2.157.37:3000',
             host:'10.2.157.37:3000',
             changeOrigin:true
+        },
+        '/product':{
+            target:'https://m.wowdsgn.com',
+            host:'m.wowdsgn.com',
+            changeOrigin:true
         }
 
 

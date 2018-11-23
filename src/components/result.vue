@@ -8,19 +8,26 @@
 		     	<li>
 		     	  <router-link to="/home">
 		     		<span class="tubiao2"><i class="iconfont icon-store"></i></span>
-		     	</router-link>
+		     	  </router-link>
 		     	</li>	
 		     </ul>
 	</div>
 </template>
 <script>
+  import axios from 'axios'
 	 export default{
 	 	  name:'result',
 	 	  data(){
 	 	  	 return {
+	 	  	 	id:'',
                 value:''
 	 	  	 }
-	 	  }
+	 	  },
+	 	  mounted(){
+             // axios.get('/product/search?keyword=%E6%B2%99%E5%8F%91&sort=onShelfTime&order=desc&currentPage=1&_=1542950092277').then(res=>{
+             // 	   console.log(res)
+             // })
+	 	  } 
 	 }
 </script>
 <style lang="scss" scoped>
