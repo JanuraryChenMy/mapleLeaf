@@ -7,36 +7,41 @@
 			<span>购物车</span>
 			<span @click="whatIns">{{insCon}}</span>
 		</div>
-		
+		{{count}}
 			<transition-group appear name="slide-fade" class="cartShow" v-if="dataList.length===0? false: true" tag="ul">
-				<li v-for="data,index in dataList" class="li" :key="data.id">
+				
+
+				<li v-for="data,index in dataList" class="li" :key="data.productId">
 					<div class="select">
 						<div class="check">
-							<input type="checkbox" :key="data.id" :value="data" v-model="isList">
+							<input type="checkbox" :key="data.productId" :value="data" v-model="isList">
 						</div>
 						<div class="LeftAndRight">
 							<button @click="clickJ(index)">-</button>
-							<input type="text" v-model="data.number" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+							<input type="text" v-model="count[index]" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
 							<button @click="clickZ(index)">+</button>
 						</div>
+						
 					</div>
 					<div class="show">
 						<div class="img">
-							<img :src="data.img">
+							<img :src="data.proImg" @click="tiaozhuan(data.productId)">
 						</div>
 						<ul class="cartContent">
-							<li class="name">{{data.name}}</li>
+							<li class="name" style="overflow: hidden; height: .20rem;">{{data.proName}}</li>
 							<li class="style">
-								<span v-for="dataCon,index in data.style" class="styleSpan">{{dataCon}}</span>
+								<span class="styleSpan">{{data.proStyle}}</span>
 							</li>
 							<li class="nulll"></li>
 							<li class="price">
-								<span class="span1">￥{{data.price}}</span>
-								<span class="span2">x{{data.number}}</span>
+								<span class="span1">￥{{data.proPrice}}</span>
+								<span class="span2">x{{count[index]}}</span>
 							</li>
 						</ul>
 					</div>
 				</li>
+
+
 			</transition-group>
 		
 		<!-- {{dataList}} -->
@@ -74,6 +79,8 @@
 
 <script>
 import axios from "axios"
+import { Toast } from 'mint-ui'
+import Vue from 'Vue'
 export default {
 	name: 'car',
 	data(){
@@ -82,21 +89,27 @@ export default {
 			isList: [],
 			page: 1,
 			ins: true,
-			cure: []
+			cure: [],
+			count: null
 		}
 	},
 	methods: {
+		tiaozhuan(id){
+			this.$router.push('/detail'+id);
+		},
 		clickZ(index){
-			this.dataList[index].number++
+			var indexx = this.count[index]+1;
+			Vue.set(this.count,index,indexx)
 		},
 		clickJ(index){
-			this.dataList[index].number>1?this.dataList[index].number--:this.dataList[index].number
+			var indexx = this.count[index];
+			this.count[index] > 1  ?  Vue.set(this.count,index,indexx-1) : this.count[index]
 		},
 		submilt(){
 
 		},
 		tuijianlianjie(id){
-			this.$router.push("/detail/" + id)
+			this.$router.push("/detail/" + parseInt(id))
 		},
 		deleteLi(){
 			if (this.dataList.length === this.isList.length) {
@@ -145,71 +158,82 @@ export default {
 	mounted(){
 		if (!this.$store.state.isLog) {
 			this.$router.push('/my/login');
+			Toast({
+				message: '请先登录',
+				position: 'bottom',
+				duration: 1500
+			});
+			return;
 		}
-		setTimeout(()=>{
-			this.dataList = [
-				{
-					id: 1,
-					img: 'fsdfsgfsdag.jpg',
-					name: 'Nox晚安音乐灯灰白色',
-					style: [
-						'白色',
-						'黑色',
-						'红色'
-					],
-					price: '349',
-					number: 8000
-				},
-				{
-					id: 2,
-					img: 'fsdfsgfsdag.jpg',
-					name: 'Nox晚安音乐灯灰绿色',
-					style: [
-						'白色',
-						'黑色',
-						'红色'
-					],
-					price: '1224',
-					number: 2
-				},
-				{
-					id: 3,
-					img: 'fsdfsgfsdag.jpg',
-					name: '窗帘',
-					style: [
-						'白色',
-						'黑色',
-						'红色'
-					],
-					price: '999',
-					number: 5
-				},
-				{
-					id: 4,
-					img: 'fsdfsgfsdag.jpg',
-					name: '窗帘',
-					style: [
-						'白色',
-						'黑色',
-						'红色'
-					],
-					price: '999',
-					number: 5
-				},
-				{
-					id: 5,
-					img: 'fsdfsgfsdag.jpg',
-					name: '窗帘',
-					style: [
-						'白色',
-						'黑色',
-						'红色'
-					],
-					price: '999',
-					number: 5
-				}
-			]
-		},500);
+		axios.get('/api/cart').then(res=>{
+			console.log(res.data.data)
+			this.count = res.data.data.count;
+			this.dataList = res.data.data.information;
+		})
+		// setTimeout(()=>{
+		// 	this.dataList = [
+		// 		{
+		// 			id: 1,
+		// 			img: 'fsdfsgfsdag.jpg',
+		// 			name: 'Nox晚安音乐灯灰白色',
+		// 			style: [
+		// 				'白色',
+		// 				'黑色',
+		// 				'红色'
+		// 			],
+		// 			price: '349',
+		// 			number: 8000
+		// 		},
+		// 		{
+		// 			id: 2,
+		// 			img: 'fsdfsgfsdag.jpg',
+		// 			name: 'Nox晚安音乐灯灰绿色',
+		// 			style: [
+		// 				'白色',
+		// 				'黑色',
+		// 				'红色'
+		// 			],
+		// 			price: '1224',
+		// 			number: 2
+		// 		},
+		// 		{
+		// 			id: 3,
+		// 			img: 'fsdfsgfsdag.jpg',
+		// 			name: '窗帘',
+		// 			style: [
+		// 				'白色',
+		// 				'黑色',
+		// 				'红色'
+		// 			],
+		// 			price: '999',
+		// 			number: 5
+		// 		},
+		// 		{
+		// 			id: 4,
+		// 			img: 'fsdfsgfsdag.jpg',
+		// 			name: '窗帘',
+		// 			style: [
+		// 				'白色',
+		// 				'黑色',
+		// 				'红色'
+		// 			],
+		// 			price: '999',
+		// 			number: 5
+		// 		},
+		// 		{
+		// 			id: 5,
+		// 			img: 'fsdfsgfsdag.jpg',
+		// 			name: '窗帘',
+		// 			style: [
+		// 				'白色',
+		// 				'黑色',
+		// 				'红色'
+		// 			],
+		// 			price: '999',
+		// 			number: 5
+		// 		}
+		// 	]
+		// },500);
 		axios.get(`/recommend/cart?currentPage=1&_=1542845286709`).then(res=>{
 			// console.log(this.cure);
 			res.data.data.forEach(data=>{
@@ -303,7 +327,6 @@ button{
 			float: left;
 			width: .8rem;
 			height: .8rem;
-			background-color: red;
 			margin-left: .2rem;
 			img{
 				width: 100%;
