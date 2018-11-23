@@ -73,12 +73,12 @@ export default new Router({
       ]
     },
     {
-      path: '/search:id',
+      path: '/search',
       component: Search,
     },
     {
-      path:'/result',
-      component:Result 
+      path:'/result/:id',
+      component:Result, 
     },      
     {
       path: '/classify',

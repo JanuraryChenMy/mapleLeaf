@@ -14,7 +14,7 @@
 	     <ul class="ul2">
              <li class="li2">
              	<div class="span">热门搜索</div>
-                <div class="div" v-for="data in datalist" @click="click">{{data}}</div>
+                <div class="div" v-for="data in datalist" @click="click(data)">{{data}}</div>
              </li> 
              <li class="li3">
              	<div class="div2">历史搜索</div>
@@ -44,7 +44,9 @@
 	 	   	   // }
 	 	   },
 	 	   methods:{
-               click(id){
+               click(data){
+               	   var id = window.encodeURIComponent(data);
+               	   console.log(id)
                	   this.$router.push('/result/'+id)
                }
 	 	   }
