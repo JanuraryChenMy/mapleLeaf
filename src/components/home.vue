@@ -27,6 +27,7 @@
 </template>
 
 <script>
+	import axios from 'axios'
 	export default {
 		name:'home',
 		data(){
@@ -38,6 +39,15 @@
 			search(){
 				 this.$router.push('/search')
 			}
+		},
+		mounted(){
+		  if(this.$store.state.isLog){
+		    axios.get('/api/cart').then(res=>{
+		      console.log(res.data.data)
+		      this.$store.commit('changeCartCount',res.data.data.count.length);
+		      this.count = this.$store.cartCount;
+		    })
+		  }
 		}
 	}
 </script>
