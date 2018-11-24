@@ -46,7 +46,7 @@
 					<button>{{styleList}}</button>
 				</div>
 				<p class="cccos">数量</p>
-				<p class="btn"><button @click="num>1? parseInt(num)-1: num">-</button><span>{{num}}</span><button @click="parseInt(num)+1">+</button></p>
+				<p class="btn"><button @click="jian">-</button><span>{{parseInt(num)}}</span><button @click="jia">+</button></p>
 			</div>
 			<div class="thre" @click.stop="TOGO">确定</div>
 		</div>	
@@ -75,12 +75,20 @@ export default {
 		}
 	},
 	methods:{
+		jia(){
+			this.num++;
+		},
+		jian(){
+			if (this.num > 1) {
+				this.num--
+			}
+		},
 		TOGO(){
 			// console.log(typeof(this.num))
 			if (this.$store.state.isLog) {
 				axios.post(`/api/cart/add`,{
 					id: this.id,
-					number: this.num
+					number: parseInt(this.num)
 				}).then(res=>{
 					if (res.data.jj) {
 						// alert('添加购物车成功');
@@ -104,6 +112,7 @@ export default {
 					duration: 3000,
 					className: '.toast'
 				});
+				this.carP = !this.carP
 			}
 			// console.log(this.id)
 			// console.log(this.num)

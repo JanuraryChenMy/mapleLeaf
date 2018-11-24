@@ -131,7 +131,7 @@ export default {
 		leave(index){
 			axios.post(`/api/cart/change`,{
 				id: this.dataList[index].productId,
-				count: this.count[index]
+				count: parseInt(this.count[index])
 			}).then(res=>{
 				// console.log(res)
 				if (res.data.state === 1) {
