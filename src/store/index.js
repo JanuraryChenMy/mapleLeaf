@@ -12,7 +12,8 @@ const store = new Vuex.Store({
 		list:[],
 	    changeResult:'onShelfTime',
 	    datalist2:[],
-        currend:0
+        currend:0,
+        cartCount:0
 	},
 	actions:{
        getimg(store,payload){
@@ -37,6 +38,9 @@ const store = new Vuex.Store({
 		},
 		changeLog(state,payload){
 			state.isLog = payload;
+		},
+		changeCartCount(state,payload){
+			state.cartCount = payload;
 		},
 		changeResult(state,payload){
              state.changeResult = payload
