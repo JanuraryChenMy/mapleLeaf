@@ -35,7 +35,7 @@
           	</li>
           </ul>
            <div>
-               <button type="button" class="back-top small" @click="backTop()" v-show="backTopShow">返回顶部</button>
+               <button type="button" class="back-top small" @click="backTop()" v-show="backTopShow"><i class="iconfont icon-less"></i></button>
           </div> 
 	</div>
 </template>
@@ -251,7 +251,7 @@
 
          width:0.35rem;
          height:0.35rem;
-         background:black;
+         background:#F5F5F5;
          color:white;
          z-index:100;
          border-radius: 100%;
@@ -259,5 +259,9 @@
          right:0.3rem;
          bottom: 1rem;
          outline:none;
+         i{
+           color:black;
+           font-size: 0.2rem;
+         }
      }
 </style>
