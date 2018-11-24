@@ -8,6 +8,8 @@
 			 <router-link tag="div" to="/my/information" class="header-right"><img src="../assets/me.png"></router-link>
 		</header>
 		<div class="middle">您还没有收货地址，添加一个吧</div>
+		<router-link tag="p"></router-link>
+		<p class="add">添加收货地址</p>
 	</div>
 </template>
 
@@ -65,6 +67,18 @@ header{
 }
 .middle{
 	text-align: center;
-
+	height:5.2rem;
+	line-height: 5.2rem;
+}
+.add{
+	position: fixed;
+	bottom:0;
+	display: block;
+	background:#000;
+	color:#fff;
+	height:0.4rem;
+	line-height: 0.4rem;
+	text-align: center;
+	width:100%;
 }
 </style>

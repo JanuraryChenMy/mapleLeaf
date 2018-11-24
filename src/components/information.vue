@@ -13,7 +13,7 @@
 				<span class="userphoto">
 					<label>
 						<input type="file" class="file" >
-						<img src="https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLliav3HOMFfLRaddtdtkicT7kOo77fxBOJGaGb8WVub1T9yDXxxZ31hkLIoCmBQKyDB3QwaePhys3A/132">
+						<img src="https://img.wowdsgn.com/%2Fuser%2Favatar%2F2108a2ee-61bb-463e-aba0-c1fb9c8b5927_2dimension_200x200.jpg">
 						<span class="icon iconfont">></span>
 					</label>
 				</span>
@@ -22,8 +22,8 @@
 				<li><div class="a"><span>昵称</span><span>{{this.$store.state.isLog.data.username}}</span><span>></span></div></li>
 				<li><div class="a"><span>个性签名</span><span>123</span><span>></span></div></li>
 				<li><div class="a" @click="handleClick()"><span>性别</span><span>女</span><span>></span></div></li>
-				<li><div class="a"><span>年龄段</span><span>95后</span><span>></span></div></li>
-				<li><div class="a"><span>星座</span><span>天蝎座</span><span>></span></div></li>
+				<li><div class="a" @click="ageClick()"><span>年龄段</span><span>90后</span><span>></span></div></li>
+				<li><div class="a" @click="criClick()"><span>星座</span><span>天蝎座</span><span>></span></div></li>
 				<li><div class="a"><span>职业</span><span>学生</span><span>></span></div></li>
 			</ul>
 			
@@ -32,12 +32,37 @@
 			<span>收货地址</span>
 			<span>></span>
 		</router-link>
-		<mt-popup v-model="popupVisible" position="bottom" class="popup" >
+		<mt-popup v-model="popupoVisible" position="bottom" class="popup" >
 			<div class="age-cancel">取消</div>
 			<div class="age-confirm">确认</div>
 			<p>男</p>
 			<p>女</p>
 			<p>保密</p>
+		</mt-popup>
+		<mt-popup v-model="popupVisible" position="bottom" class="popup" >
+			<div class="age-cancel">取消</div>
+			<div class="age-confirm">确认</div>
+			<p>保密</p>
+			<p>70</p>
+			<p>80</p>
+			<p>90</p>
+			<p>00</p>
+		</mt-popup>
+		<mt-popup v-model="popupcVisible" position="bottom" class="popup" >
+			<div class="age-cancel">取消</div>
+			<div class="age-confirm">确认</div>
+			<p>天蝎座</p>
+			<p>射手座</p>
+			<p>白羊座</p>
+			<p>双子座</p>
+			<p class="blue">双鱼座</p>
+			<p>摩羯座</p>
+			<p>狮子座</p>
+			<p>处女座</p>
+			<p>天秤座</p>
+			<p>巨蟹座</p>
+			<p>射手座</p>
+			<p>水瓶座</p>
 		</mt-popup>
 	</div>
 </template>
@@ -48,12 +73,20 @@
 		data(){
 			return {
 				popupVisible:false,
+				popupcVisible:false,
+				popupoVisible:false,
 				closeOnClickModal:true
 			}
 		},
 		methods:{
 			handleClick(){
+				this.popupoVisible = true;
+			},
+			ageClick(){
 				this.popupVisible = true;
+			},
+			criClick(){
+				this.popupcVisible = true;
 			},
 			homeClick(){
 				this.$router.push('/home');
@@ -197,7 +230,7 @@ header{
 .popup{
 	width:100%;
 	height:2.5rem;
-	background:yellow;
+	border:1px solid #eee;
 	.age-cancel{
 		position:absolute;
 		left:0.1rem;
@@ -209,7 +242,16 @@ header{
 		top:0.1rem;
 	}
 	p{
-		font-size:30px;
+		font-size:0.2rem;
+		position: relative;
+		top:0.5rem;
+		height:0.4rem;
+		line-height: 0.4rem;
+		border:0.01rem solid #eee;
+		text-align: center;
+	}
+	.blue{
+		color:#00f;
 	}
 }
 .address{

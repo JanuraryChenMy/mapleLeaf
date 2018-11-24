@@ -7,7 +7,7 @@
 			 <h3 class="header-middle">我</h3>
 		</header>
 		<router-link tag="div" to="/my/information" class="name">
-			<img src="https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLliav3HOMFfLRaddtdtkicT7kOo77fxBOJGaGb8WVub1T9yDXxxZ31hkLIoCmBQKyDB3QwaePhys3A/132">
+			<img src="https://img.wowdsgn.com/%2Fuser%2Favatar%2F2108a2ee-61bb-463e-aba0-c1fb9c8b5927_2dimension_200x200.jpg">
 			<div class="user">
 				<p class="username">{{username}}</p>
 				<p class="usershow">{{usershow}}</p>
@@ -58,14 +58,11 @@
 			<ul>
 				<router-link tag="li" to="/my/collection" class="collection">我的收藏<span class="symbol">></span></router-link>
 				<router-link tag="li" to="/my/coupons" class="collection">我的礼券<span class="symbol">></span></router-link>
-				<li class="service">客服电话
-					<span class="tips">周一至周五 9:00 - 18:30</span>
-					<span class="symbol">></span>
-				</li>
 			</ul>
 		</div>
 		<!-- <router-link tag="div" to="/my/login" class="exit">退出登录</router-link> -->
 		<div class="exit" @click="exitClick()">退出登录</div>
+		<div class="kongbai"></div>
 	</div>
 </template>
 
@@ -95,6 +92,7 @@
 			}
 		},
 		mounted(){
+			this.$store.commit('changeNavbar',1);
 			axios.get('api/login').then((res)=>{
 				console.log(res.data);
 				this.username = res.data.data.username;
@@ -106,10 +104,13 @@
 </script>
 
 <style lang="scss" scoped>
-
+body{
+	background:#ccc;
+}
 $nav_Height:0.4rem;
 .box{
 	height:100%;
+	background:#f5f5f5;
 }
 header{
 	box-sizing:border-box;
@@ -146,9 +147,9 @@ header{
 .name{
 	box-sizing:border-box;
 	width:100%;
-	height:0.9rem;
+	height:0.8rem;
 	background:#fff;
-	margin:0.2rem 0;
+	margin:0.15rem 0;
 	position: relative;
 	padding: 0;
 	img{
@@ -238,21 +239,6 @@ header{
 				right:-2.3rem;
 			}
 		}
-		.service{
-			height:0.5rem;
-			line-height:0.5rem;
-			position: relative;
-			.tips{
-				font-size:0.1rem;
-				color:#ccc;
-				position: relative;
-				left:0.5rem;
-			}
-			.symbol{
-				position: relative;
-				right:-0.65rem;
-			}
-		}	
 	}
 }
 .exit{
@@ -263,5 +249,10 @@ header{
 	color:#ff7070;
 	text-align: center;
 	background:#fff;
+
+}
+.kongbai{
+	width:100%;
+	height:0.4rem;	
 }
 </style>
