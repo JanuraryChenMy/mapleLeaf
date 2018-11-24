@@ -25,36 +25,7 @@
 			return {
 				isFurnitureShow:true,
 				isHouseShow:true,
-				furnitureList:[
-					{
-						name:'沙发',
-						id:20
-					},{
-						name:'椅凳',
-						id:21
-					},{
-						name:'桌几',
-						id:22
-					},{
-						name:'床',
-						id:2310
-					},{
-						name:'柜架',
-						id:24
-					},{
-						name:'餐桌',
-						id:2210
-					},{
-						name:'茶几和边桌',
-						id:2211
-					},{
-						name:'书桌',
-						id:2212
-					},{
-						name:'隔断',
-						id:2414
-					},
-				],
+				furnitureList:null,
 				houseList:[
 					{
 						name:'灯具',
@@ -83,7 +54,7 @@
 
 		},
 		mounted(){
-			
+			this.furnitureList = this.$store.state.furnitureList
 		},
 		components:{
 
