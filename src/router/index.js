@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // import HelloWorld from '@/components/HelloWorld'
 import Home from '../components/home.vue'
+import Search from '../components/search.vue'
+import Result from '../components/result.vue'
 import Classify from '../components/classify.vue'
 import Car from '../components/car.vue'
 import Message from '../components/message.vue'
@@ -10,7 +12,6 @@ import Myself from '../components/myself.vue'
 import Collection from '../components/collection.vue'
 import Coupons from '../components/coupons.vue'
  
-
 import Login from '../components/login.vue'
 import Register from '../components/register.vue'
 import Forgetpass from '../components/forgetpass.vue'
@@ -23,11 +24,18 @@ import Orderdelivery from '../components/orderdelivery.vue'
 import Orderpay from '../components/orderpay.vue'
 import Orderreceived from '../components/orderreceived.vue'
 
+import Exitgood from '../components/exitgood.vue'
+
+import Address from '../components/address.vue'
+import Addsite from '../components/addsite.vue'
+
 import Information from '../components/information.vue'
 
 import Common from '../components/common.vue'
 import Furniture from '../components/furniture.vue'
 import House from '../components/house.vue'
+import detail from '../components/detail.vue'
+
 import Active from '../components/active.vue'
 
 import Catalog from '../components/catalog.vue'
@@ -48,8 +56,8 @@ export default new Router({
       		component:Common
       	},
       	{
-      		path:'information',
-      		component:Information
+      		path:'furniture',
+      		component:Furniture
       	},
       	{
       		path:'house',
@@ -66,8 +74,20 @@ export default new Router({
       ]
     },
     {
+      path: '/search',
+      component: Search,
+    },
+    {
+      path:'/result/:id',
+      component:Result, 
+    },      
+    {
       path: '/classify',
       component: Classify,
+    },
+    {
+      path: '/detail/:id',
+      component: detail,
     },
     {
       path: '/car',
@@ -148,6 +168,18 @@ export default new Router({
               component:Orderreceived,
             }
           ]
+        },
+        {
+          path:'exitgood',
+          component:Exitgood
+        },
+        {
+          path:'address',
+          component:Address
+        },
+        {
+          path:'addsite',
+          component:Addsite,
         },
         {
           path:'',

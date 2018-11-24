@@ -1,6 +1,6 @@
 <template>
 	<div>
-		全部
+		<div class="main">暂无订单</div>
 	</div>
 </template>
 
@@ -9,5 +9,10 @@
 </script>
 
 <style lang="scss" scoped>
-	
+.main{
+	text-align: center;
+	width:100%;
+	position: relative;
+	top:0.41rem;
+}
 </style>

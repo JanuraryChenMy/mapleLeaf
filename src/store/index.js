@@ -42,8 +42,14 @@ const store = new Vuex.Store({
 		id:null,
 		sort:'desc',
 		pageNumber:1,
-		showList:[]
-
+		showList:[],
+		msgType:1,
+		isLog:'',
+		list:[],
+	    changeResult:'onShelfTime',
+	    datalist2:[],
+        currend:0,
+        cartCount:0
 	},
 	
 	mutations:{
@@ -79,19 +85,51 @@ const store = new Vuex.Store({
 		},
 		changePage(state,payload){
 			state.pageNumber = payload
-		}
+		},
+		changeMessage(state,payload){
+			state.msgType = payload;
+		},
+		changeLog(state,payload){
+			state.isLog = payload;
+		},
+		changeCartCount(state,payload){
+			state.cartCount = payload;
+		},
+		changeResult(state,payload){
+             state.changeResult = payload
+             state.currend = 0
+             state.list = []
+		},
+		datalist(state,payload){
+			 state.datalist2.push(payload)
+             state.list = []
+		},
+		datalist3(state,payload){
+			 state.datalist2 = []
+		},
+		getimgMutations(state,payload){
+			 state.list = [...state.list,...payload]
+		},
 	},
 	actions:{
 		changeCatalog({state},payload){
 			return axios.get(`/pages/category/${state.id}?pageNumber=${state.pageNumber}&orderBy=${state.orderBy}&sort=${state.sort}&_=154`).then((res)=>{
 				store.commit('changeCatalog',res.data.data.products)
 				return res.data.data.products
-				
 			}).catch(err=>{
 				console.log(err);
 			})
+		},
+		getimg(store,payload){
+		    store.state.currend++
+			   var id = window.encodeURIComponent(payload)
+		    axios.get(`/product/search?keyword=${id}&sort=${store.state.changeResult}&order=desc&currentPage=${store.state.currend}&_=${new Date().getTime()}`).then(res=>{
+		     	store.commit('getimgMutations',res.data.data.products)
+		         return res.data.data.products
+		    })
 		}
-	},
+
+	}
 })
 
 export default store;

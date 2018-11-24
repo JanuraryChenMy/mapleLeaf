@@ -31,6 +31,9 @@
 				// console.log(data)
 				this.title = data
 			}
+		},
+		mounted(){
+			this.$store.commit('changeNavbar', 1)
 		}
 	}
 </script>

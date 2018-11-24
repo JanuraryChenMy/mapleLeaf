@@ -6,7 +6,7 @@
 				<dl>
 					<dt>
 						<p v-html="messageTitle[index]"></p>
-						<i class="iconfont icon-more" @click="goMessageList(messageTitle[index])"></i>
+						<i class="iconfont icon-more" @click="goMessageList(messageTitle[index],data)"></i>
 					</dt>
 					<dd>
 						<p>{{data.msgContent}}</p>
@@ -33,7 +33,6 @@
 			mounted(){
 				axios.get('/message/messageMain?_=1542763527726').then((res)=>{
 					this.messageList = res.data.data.messageLists;
-					this.$store.commit('changeNavbar',0);
 				})
 			},
 			computed:{
@@ -49,9 +48,10 @@
 				}
 			},
 			methods:{
-				goMessageList(data){
+				goMessageList(data,msg){
 					this.$router.push('/message/msglist');
-					this.$emit('changetitle',data)
+					this.$emit('changetitle',data);
+					this.$store.commit('changeMessage',msg.msgType);
 				}
 			}
 		}

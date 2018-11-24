@@ -3,9 +3,9 @@
     <nav class="nav" v-if="$store.state.show">
       <router-link tag="div" to="/home" activeClass="active" class="nav-bar">首页</router-link>
       <router-link tag="div" to="/classify" activeClass="active" class="nav-bar">分类</router-link>
-      <router-link tag="div" to="/car" activeClass="active" class="nav-bar">购物车</router-link>
+      <router-link tag="div" to="/car" activeClass="active" class="nav-bar">购物车<div class="count" v-html="$store.state.cartCount" v-if="$store.state.cartCount"></div></router-link>
       <router-link tag="div" to="/message" activeClass="active" class="nav-bar">消息</router-link>
-      <router-link tag="div" to="/my" activeClass="active" class="nav-bar" @click="handClick()">我</router-link>
+      <router-link tag="div" :to="$store.state.isLog?'/my/myself':'/my/login'" activeClass="active" class="nav-bar" @click="handClick()">我</router-link>
     </nav>
     <router-view></router-view>
   </div>
@@ -34,12 +34,13 @@ export default {
   name: 'App',
   data(){
     return{
-
+        
     }
   },
   components:{
     catalog
   }
+  
 }
 
 </script>
@@ -68,12 +69,27 @@ export default {
     bottom:0;
     left:0;
     background:white;
+    z-index:100;
     .nav-bar{
       flex:1;
       height:100%;
       text-align:center;
       line-height:0.44rem;
       color:#808080;
+      position:relative;
+      .count{
+        position:absolute;
+        right:0;
+        top:0.02rem;
+        width:0.16rem;
+        height:0.16rem;
+        background:#FFD444;
+        border-radius:50%;
+        font-size:0.12rem;
+        line-height:0.16rem;
+        font-weight:bold;
+      }
+
     }
     .active{
       color:#000;

@@ -13,7 +13,7 @@
 			}
 		},
 		mounted(){
-			this.$store.commit('changeNavbar',0);
+			this.$store.commit('changeNavbar',1);
 		},
 		beforeDestroyed(){
 			this.$store.commit('changeNavbar',1);
@@ -22,5 +22,8 @@
 </script>
 
 <style lang="scss" scoped>
-	
+	div{
+		height:100%;
+		overflow-x:hidden;
+	}
 </style>

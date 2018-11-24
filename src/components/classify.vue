@@ -1,9 +1,9 @@
 <template>
 	<div class="classify">
-		<div class="search">
+		<router-link to="/search" class="search" tag="div">
 			<i class="iconfont icon-originalimage"></i>
 			<input type="text">
-		</div>
+		</router-link>
 		<ul class="furniture" v-if="isFurnitureShow">
 			<li class="furnitureimg"><img src="../assets/furniture.png" alt=""></li>
 			<router-link :to="`/catalog/${item.id}`" tag="li" v-for="item in furnitureList" :key="item.id"> {{item.name}} </router-link>

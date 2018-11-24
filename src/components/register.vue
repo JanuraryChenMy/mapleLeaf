@@ -5,18 +5,99 @@
 			 <router-link tag="div" to="/my/login" class="register-right">登录</router-link>
 		</header>
 		<div id="leftTabBox" class="tabBox">
-			<input type="text" name="telephone" placeholder="请输入手机号" class="phone" id="iphone">
+			<input type="text" name="username" placeholder="请输入用户名" class="phone" id="username" @blur="checkUser()" v-model="username">
+			<input type="text" name="telephone" placeholder="请输入手机号" class="phone" id="iphone" @blur="checkPhone()" v-model="phone">
 			<div class="password">
-				<input type="password" name="yanzhengma" placeholder="请输入验证码" id="yanzhengma" class="yanzhengma">
-				<img src="../assets/renew.jpg" class="forget">
+				<input type="password" name="yanzhengma" placeholder="请输入密码" id="yanzhengma" class="yanzhengma" v-model="password" @blur="checkPassword()">
 			</div>
 		</div>
-		<router-link tag="div" id="login-btn" to="/my/login">注册</router-link>
+		<!-- <router-link tag="div" id="login-btn" to="/my/login">注册</router-link> -->
+		<button @click="commitClick()" id="login-btn">注册</button>
 	</div>
 </template>
 
 <script>
-	
+	import axios from 'axios'
+	import { Toast } from 'mint-ui'
+	export default {
+		name:'register',
+		data(){
+			return {
+				username:'',
+				phone:'',
+				password:'',
+				pc:false,
+				uc:true,
+				pwc:false
+			}
+		},
+		methods:{
+			checkUser(){
+				var reg = /^[\u4e00-\u9fa50-9a-zA-Z_]{4,10}$/
+				if(reg.test(this.username)){
+					this.uc = true;
+				} else{
+					this.uc = false;
+					Toast({
+						message:'用户名长度4-10位，仅包含中文，数字，字母，下划线。',
+						position:'bottom',
+						duration:1000
+					})
+				}
+			},
+			checkPhone(){
+				var reg = /^1[34578]\d{9}$/;
+				if(reg.test(this.phone)){
+					// console.log(1111);
+					axios.post('/api/register/check',{phone:this.phone}).then((res)=>{
+						if(res.data.state === 1){
+							// console.log(true,res)
+							this.pc = true;
+						} else if(res.data.state === 0) {
+							// console.log(false)
+							this.pc = false;
+							Toast({
+								message: '手机已注册过',
+								position: 'bottom',
+								duration: 1000
+							});
+						}
+					})
+				} else{
+					this.pc = false;
+					Toast({
+						message: '手机格式不正确',
+						position: 'bottom',
+						duration: 1000
+					});
+				}
+			},
+			checkPassword(){
+				var reg = /^[a-zA-Z0-9_.]{6,20}$/;
+				if(reg.test(this.password)){
+					// console.log(1111)
+					this.pwc = true;
+				} else {
+					this.pwc = false;
+					Toast({
+						message: '密码大于六位，仅包含数字，字母，下划线，. ，_ 。',
+						position: 'bottom',
+						duration: 1000
+					});
+				}
+			},
+			commitClick(){
+				if(this.pc && this.uc && this.pwc){
+					axios.post('/api/register',{username:this.username,phone:this.phone,password:this.password}).then((res)=>{
+						// console.log(res);
+						if(res.data.state === 2){
+							this.$router.push('/my/login');
+						}
+					})
+				}
+			}
+		}
+	}
 </script>
 
 <style lang="scss" scoped>
@@ -74,20 +155,8 @@ $nav_Height:0.4rem;
 			font-size:0.18rem;
 			color:#000;
 			float:left;
-			width:1rem;
+			width:100%;
 		}
-		.forget{
-			border:0;
-			height:0.4rem;
-			line-height: 0.4rem;
-			font-size:0.18rem;
-			color:#000;
-			position: relative;
-			right:-0.2rem;
-			background:#fff;
-			width:1rem;
-		}
-
 	}
 }
 #login-btn{
@@ -102,7 +171,7 @@ $nav_Height:0.4rem;
 	height:$nav_Height;
 	line-height:$nav_Height;
 	background:#ffd444;
-	top:1.59rem;
+	top:2rem;
 	left:50%;
 	transform: translateX(-50%);
 	text-align: center;

@@ -9,8 +9,8 @@
 		          
 		          <li class="search">
 
-		          	<span class="tubiao"><i class="iconfont icon-originalimage"></i></span>
-		          	<input class="input" type="text" placeholder="搜索我的尖叫好物">
+		          <span class="tubiao"><i class="iconfont icon-originalimage"></i></span>
+		          <input class="input" type="text" placeholder="搜索我的尖叫好物" @click="search">
 		          </li>
 		     </ul>
 		</header>
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+	import axios from 'axios'
 	export default {
 		name:'home',
 		data(){
@@ -35,6 +36,18 @@
 			}
 		},
 		methods:{
+			search(){
+				 this.$router.push('/search')
+			}
+		},
+		mounted(){
+		  if(this.$store.state.isLog){
+		    axios.get('/api/cart').then(res=>{
+		      console.log(res.data.data)
+		      this.$store.commit('changeCartCount',res.data.data.count.length);
+		      this.count = this.$store.cartCount;
+		    })
+		  }
 		}
 	}
 </script>

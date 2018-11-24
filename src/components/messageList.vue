@@ -1,12 +1,15 @@
 <template>
-	<div>
-		<ul >
+	<div class="box">
+		<ul v-infinite-scroll="loadMore"
+  infinite-scroll-disabled="loading"
+  infinite-scroll-immediate-check= "false"
+  infinite-scroll-distance="800">
 			<li v-for="data,index in dataList" :key="data.id">
 				<dl>
-					<dt>1天前</dt>
+					<dt v-html="index===0?'一天前':data.createTime"></dt>
 					<dd>
-						<h3>生活</h3>
-						<p>深度:ioufosiufois</p>
+						<h3>{{data.msgTitle}}</h3>
+						<p>{{data.msgContent}}</p>
 						<i class="iconfont icon-more"></i>
 					</dd>
 				</dl>
@@ -21,32 +24,30 @@
 		name:'messageList',
 		data(){
 			return{
-				dataList:[1],
+				dataList:[],
 				loading:false,
 				current:1
 			}
 		},
 		methods:{
-			// loadMore(){
-			//   console.log("到底了")
-
-			//   this.current++;
-
-			//   if(this.current>this.total){
-			//     this.loading = true //禁用
-			//     this.msg= "到底了";
-			//     return ;
-			//   }
-			//   axios.get(`/v4/api/film/now-playing?page=${this.current}&count=7`).then(res=>{
-			//     console.log(res.data);
-
-			//     this.datalist = [...this.datalist,...res.data.data.films] //合并数组
-			//   })
-			// }
+			loadMore(){
+			  this.current++;
+			  if(this.current > 17){
+			  		this.loading = true;
+			  		return;
+			  }
+			  axios.get(`/message/messageList?msgType=${this.$store.state.msgType}&currentPage=${this.current}&pageSize=10&_=1542800345294`).then(res=>{
+			    console.log(res.data);
+			    this.dataList = [...this.dataList,...res.data.data.messageLists]
+			  })
+			}
 		},
 		mounted(){
-			axios.get('/message/messageList?msgType=2&currentPage=1&pageSize=10&_=1542800345294').then((res)=>{
-				console.log(res.data)
+			this.$store.commit('changeNavbar',0);
+			console.log(this.$store.state.msgType);
+			axios.get(`/message/messageList?msgType=${this.$store.state.msgType}&currentPage=1&pageSize=10&_=1542800345294`).then((res)=>{
+				console.log(res.data.data.messageLists);
+				this.dataList = res.data.data.messageLists;
 			})
 		}
 	}
@@ -54,13 +55,17 @@
 
 <style lang="scss" scoped>
 	ul{
+		background:#f5f5f5;
+		padding-bottom:1rem;
 		li{
+			margin-top:0.1rem;
+			background:#f5f5f5;
 			dl{
 				dt{
 					width:100%;
 					text-align:center;
 					font-size:0.12rem;
-					margin-top:0.1rem;
+					
 				}
 				dd{
 					width:3.25rem;
@@ -81,6 +86,7 @@
 						color:#65686C;
 						font-size:0.13rem;
 						margin-top:0.15rem;
+						width:95%;
 					}
 					i{
 						position:absolute;
