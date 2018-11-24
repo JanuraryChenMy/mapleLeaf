@@ -8,6 +8,12 @@
 			<span @click="whatIns">{{insCon}}</span>
 		</div>
 		<transition appear name="slide-fade">
+		<p v-if="!dataList[0]" style="text-align: center; font-size: 14px;padding: 40px 0 0 0; color: #777;">您的购物车为空，请尽情去添加您喜欢的商品吧！</p>
+		</transition>
+		<transition appear name="slide-fade">
+		<p v-if="!dataList[0]" style="text-align: center; font-size: 14px;padding: 0 0 40px 0; color: #000;">~.~</p>
+		</transition>
+		<transition appear name="slide-fade">
 			<transition-group appear name="slide-fade" class="cartShow" v-if="dataList.length===0? false: true" tag="ul">
 				
 
@@ -166,6 +172,12 @@ export default {
 							this.ins = !this.ins;
 							this.isList = [];
 							this.deletee = [];
+							Toast({
+								message: '清空购物车',
+								position: 'bottom',
+								duration: 2000,
+								className: '.toast'
+							});
 							return;
 						}
 

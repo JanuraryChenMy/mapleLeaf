@@ -68,6 +68,7 @@
 
 <script>
 	import axios from 'axios'
+	import { Toast } from 'mint-ui'
 	export default{
 		name:'myself',
 		data(){
@@ -83,6 +84,12 @@
 					if(res.data.state === 0){
 						this.$router.push('/my/login');
 						this.$store.commit('changeLog','')
+						Toast({
+							message: '注销成功',
+							position: 'bottom',
+							duration: 1500,
+							className: '.toast'
+						});
 					}
 				})
 			},
@@ -246,13 +253,15 @@ header{
 	height:$nav_Height;
 	line-height: $nav_Height;
 	font-size:0.2rem;
-	color:#ff7070;
+	color:#fff;
 	text-align: center;
-	background:#fff;
+	background:#6d2121;
+	border-radius:5px;
+	box-shadow: 0 5px 20px #000;
 
 }
 .kongbai{
 	width:100%;
-	height:0.4rem;	
+	height:0.80rem;	
 }
 </style>
