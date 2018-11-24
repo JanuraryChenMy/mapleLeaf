@@ -12,14 +12,14 @@
 		     	</li>	
 		     </ul>
 		     <ul class="ul2">
-		          <li v-for="data,index in datalist" :class="timeindex === index?active:''"  @click="handclick(index)">{{data}}</li>
+		          <li v-for="data,index in datalist" :class="timeindex === index?active:''"  @click="handclick(data,index)">{{data}}</li>
 		     </ul>
 		     <ul class="ul3">
 		     	<li class="li2" v-for="data,index in $store.state.list" v-infinite-scroll="loadMore"
                       infinite-scroll-disabled="loading"
                       infinite-scroll-immediate-check="false"
                       infinite-scroll-distance="0">
-		     		 <img :src="data.productImg" alt="" class="img">
+		     		 <img :src="data.productImg" alt="" class="img" @click="clickk(data)">
 		     		 <h3>{{data.productTitle}}</h3>
 		     		 <p>￥{{data.originalPrice}}</p>
 		     	</li>
@@ -46,10 +46,15 @@
 	 	  	 }
 	 	  },
 	 	  methods:{
-                 handclick(index){
+               clickk(data){
+                   this.$router.push('/detail/'+data.productId)
+                   
+               },
+                 handclick(data,index){
                      this.timeindex = index
                      this.$store.commit('changeResult',this.datalist2[index]) 
                      this.$store.dispatch("getimg",this.id)
+
                  },
                  keydown(evt,id){
                    if( evt.keyCode == 13){
