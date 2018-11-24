@@ -3,7 +3,7 @@
     <nav class="nav" v-if="$store.state.show">
       <router-link tag="div" to="/home" activeClass="active" class="nav-bar">首页</router-link>
       <router-link tag="div" to="/classify" activeClass="active" class="nav-bar">分类</router-link>
-      <router-link tag="div" to="/car" activeClass="active" class="nav-bar">购物车<div class="count" v-html="count" v-if="count"></div></router-link>
+      <router-link tag="div" to="/car" activeClass="active" class="nav-bar">购物车<div class="count" v-html="$store.state.cartCount" v-if="$store.state.cartCount"></div></router-link>
       <router-link tag="div" to="/message" activeClass="active" class="nav-bar">消息</router-link>
       <router-link tag="div" :to="$store.state.isLog?'/my/myself':'/my/login'" activeClass="active" class="nav-bar" @click="handClick()">我</router-link>
     </nav>
@@ -30,25 +30,17 @@
 // }
 
   import catalog from './components/catalog'
-  import axios from 'axios'
 export default {
   name: 'App',
   data(){
     return{
-        count:0
+        
     }
   },
   components:{
     catalog
-  },
-  mounted(){
-    if(this.$store.state.isLog){
-      axios.get('/api/cart').then(res=>{
-        this.$store.commit('changeCartCount',res.data.data.count);
-        this.count = this.$store.cartCount;
-      })
-    }
   }
+  
 }
 
 </script>
