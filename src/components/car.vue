@@ -4,10 +4,9 @@
 		<div class="iii"></div>
 		<div class="title">
 			<router-link to="/" tag="span">主页</router-link>
-			<span>购物车</span>
+			<span @click="kkkkk">购物车</span>
 			<span @click="whatIns">{{insCon}}</span>
 		</div>
-		{{count}}
 			<transition-group appear name="slide-fade" class="cartShow" v-if="dataList.length===0? false: true" tag="ul">
 				
 
@@ -18,7 +17,7 @@
 						</div>
 						<div class="LeftAndRight">
 							<button @click="clickJ(index)">-</button>
-							<input type="text" v-model="count[index]" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+							<input type="text" v-model="count[index]" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" @blur="leave(index)">
 							<button @click="clickZ(index)">+</button>
 						</div>
 						
@@ -41,9 +40,8 @@
 					</div>
 				</li>
 
-
+	
 			</transition-group>
-		
 		<!-- {{dataList}} -->
 		<!-- <transition appear name="slide-fade"> -->
 		<div class="bottom_nav">
@@ -90,20 +88,54 @@ export default {
 			page: 1,
 			ins: true,
 			cure: [],
-			count: null
+			count: null,
+			deletee: []
 		}
 	},
 	methods: {
 		tiaozhuan(id){
-			this.$router.push('/detail'+id);
+			console.log(id)
+			this.$router.push("/detail/" + parseInt(id))
 		},
 		clickZ(index){
-			var indexx = this.count[index]+1;
-			Vue.set(this.count,index,indexx)
+			console.log(typeof(this.dataList[index].productId))
+			axios.post(`/api/cart/cad`,{
+				id: parseInt(this.dataList[index].productId)
+			}).then(res=>{
+				// console.log(res)
+				if (res.data.state === 1) {
+					var indexx = this.count[index]+1;
+					Vue.set(this.count,index,indexx);
+					console.log(666)
+					console.log(this.dataList[index].productId)
+				}
+			})
 		},
 		clickJ(index){
-			var indexx = this.count[index];
-			this.count[index] > 1  ?  Vue.set(this.count,index,indexx-1) : this.count[index]
+			axios.post(`/api/cart/cre`,{
+				id: this.dataList[index].productId
+			}).then(res=>{
+				// console.log(res)
+				if (res.data.state === 1) {
+					var indexx = this.count[index];
+
+					this.count[index] > 1  ?  Vue.set(this.count,index,indexx-1) : this.count[index];
+				}
+			})
+		},
+		kkkkk(){
+			console.log(this.isList)
+		},
+		leave(index){
+			axios.post(`/api/cart/change`,{
+				id: this.dataList[index].productId,
+				count: this.count[index]
+			}).then(res=>{
+				// console.log(res)
+				if (res.data.state === 1) {
+					console.log(666)
+				}
+			})
 		},
 		submilt(){
 
@@ -112,27 +144,51 @@ export default {
 			this.$router.push("/detail/" + parseInt(id))
 		},
 		deleteLi(){
-			if (this.dataList.length === this.isList.length) {
-				// this.dataList = [];
-				for(var i=this.dataList.length; i>=0; i-- ){
-					this.dataList.splice(i, 1);
-				}
-				this.isList = [];
-				this.ins = !this.ins;
-				return;
-			}
-			this.isList.forEach((islist,ind)=>{
-				this.dataList.forEach((datalist,index)=>{
-					if (islist.id === datalist.id) {
-						this.dataList.splice(index, 1);
-						// this.isList.splice(ind, 1);
+			this.isList.forEach(res=>{
+				this.deletee.push(res.productId)
+			})
+			if (this.isList.length === this.deletee.length) {
+				console.log(this.deletee);//666
+				axios.post('/api/cart/delete',{
+					id: this.deletee
+				}).then(res=>{
+
+					if (res.data.state === 1) {
+						console.log(this.dataList.length,this.isList.length)
+						if (this.dataList.length === this.isList.length) {
+							// this.dataList = [];
+							for(var i=this.dataList.length; i>=0; i-- ){
+								this.dataList.splice(i, 1);
+							}
+							this.isList = [];
+							this.ins = !this.ins;
+							this.isList = [];
+							return;
+						}
+
+						this.isList.forEach((islist,ind)=>{
+							console.log(islist)
+							this.dataList.forEach((datalist,index)=>{
+								console.log(datalist)
+								if (islist.productId === datalist.productId) {
+									this.dataList.splice(index, 1);
+									// this.isList.splice(ind, 1);
+									console.log(999)
+									this.isList = [];
+								}
+							})
+						})
 					}
 				})
-			})
-			console.log(this.dataList,this.isList)
-			this.isList = [];
+				
+			}
+			
+			
+			// this.deletee = []
+			console.log(this.deletee)
+			// this.isList = [];
 			this.ins = !this.ins;
-			console.log(2)
+			// console.log(2)
 		},
 		whatIns(){
 			this.ins = !this.ins;
@@ -271,8 +327,15 @@ export default {
 		},
 		allPrice(){
 			let sun = 0;
-			this.isList.forEach((data)=>{
-				sun+= data.number * data.price
+			this.isList.forEach((data,index)=>{
+				// data.productId
+				this.dataList.forEach((da, ind)=>{
+					if (data.productId === da.productId) {
+						sun+= data.proPrice * this.count[ind]
+					}
+				})
+				
+			
 			})
 			return sun;
 		},
@@ -282,7 +345,7 @@ export default {
 			}else{
 				return "完成";
 			}
-		},
+		}
 
 	}
 };
