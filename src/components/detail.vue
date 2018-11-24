@@ -46,7 +46,7 @@
 					<button>{{styleList}}</button>
 				</div>
 				<p class="cccos">数量</p>
-				<p class="btn"><button @click="num>1? num--: num">-</button><span>{{num}}</span><button @click="num++">+</button></p>
+				<p class="btn"><button @click="num>1? parseInt(num)-1: num">-</button><span>{{num}}</span><button @click="parseInt(num)+1">+</button></p>
 			</div>
 			<div class="thre" @click.stop="TOGO">确定</div>
 		</div>	
@@ -70,7 +70,7 @@ export default {
 			carP: false,
 			consts: null,
 			thisStyle: null,
-			num: null,
+			num: 1,
 			just: false
 		}
 	},
@@ -154,7 +154,7 @@ export default {
 							// this.zhong = res.data.data.skuAttrPairs[1]
 							// console.log(res)
 							this.consts = res.data.data
-							this.num = this.consts.stockQty
+							// this.num = this.consts.stockQty
 						})
 						axios.get(`/itemdetail/spuInfos/${this.parentProductId}?_=1542866639726`).then(res=>{
 							// console.log(res)
