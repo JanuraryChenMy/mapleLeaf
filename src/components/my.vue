@@ -13,7 +13,7 @@
 			}
 		},
 		mounted(){
-			this.$store.commit('changeNavbar',0);
+			this.$store.commit('changeNavbar',1);
 		},
 		beforeDestroyed(){
 			this.$store.commit('changeNavbar',1);

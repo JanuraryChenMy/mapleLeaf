@@ -33,7 +33,6 @@
 			mounted(){
 				axios.get('/message/messageMain?_=1542763527726').then((res)=>{
 					this.messageList = res.data.data.messageLists;
-					this.$store.commit('changeNavbar',0);
 				})
 			},
 			computed:{
