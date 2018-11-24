@@ -27,6 +27,7 @@ import Orderreceived from '../components/orderreceived.vue'
 import Exitgood from '../components/exitgood.vue'
 
 import Address from '../components/address.vue'
+import Addsite from '../components/addsite.vue'
 
 import Information from '../components/information.vue'
 
@@ -175,6 +176,10 @@ export default new Router({
         {
           path:'address',
           component:Address
+        },
+        {
+          path:'addsite',
+          component:Addsite,
         },
         {
           path:'',

@@ -8,13 +8,22 @@
 			 <router-link tag="div" to="/my/information" class="header-right"><img src="../assets/me.png"></router-link>
 		</header>
 		<div class="middle">您还没有收货地址，添加一个吧</div>
-		<router-link tag="p"></router-link>
-		<p class="add">添加收货地址</p>
+		<router-link tag="p" class="add" to="/my/addsite">添加收货地址</router-link>
 	</div>
 </template>
 
 <script>
-	
+	export default {
+		name:"address",
+		data(){
+			return {
+
+			}
+		},
+		mounted(){
+			this.$store.commit("changeNavbar",0)
+		}
+	}
 </script>
 
 <style lang="scss" scoped>
