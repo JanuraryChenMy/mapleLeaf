@@ -7,6 +7,7 @@
 			<span @click="kkkkk">购物车</span>
 			<span @click="whatIns">{{insCon}}</span>
 		</div>
+		<transition appear name="slide-fade">
 			<transition-group appear name="slide-fade" class="cartShow" v-if="dataList.length===0? false: true" tag="ul">
 				
 
@@ -43,6 +44,7 @@
 	
 			</transition-group>
 		<!-- {{dataList}} -->
+		</transition>
 		<!-- <transition appear name="slide-fade"> -->
 		<div class="bottom_nav">
 			<div class="b_nav_left">
@@ -104,8 +106,8 @@ export default {
 			}).then(res=>{
 				// console.log(res)
 				if (res.data.state === 1) {
-					var indexx = this.count[index]+1;
-					Vue.set(this.count,index,indexx);
+					var indexx = parseInt(this.count[index])+1;
+					parseInt(Vue.set(this.count,index,indexx));
 					console.log(666)
 					console.log(this.dataList[index].productId)
 				}
@@ -119,7 +121,7 @@ export default {
 				if (res.data.state === 1) {
 					var indexx = this.count[index];
 
-					this.count[index] > 1  ?  Vue.set(this.count,index,indexx-1) : this.count[index];
+					parseInt(this.count[index]) > 1  ?  parseInt(Vue.set(this.count,index,indexx-1)) : parseInt(this.count[index]);
 				}
 			})
 		},
@@ -163,21 +165,29 @@ export default {
 							this.isList = [];
 							this.ins = !this.ins;
 							this.isList = [];
+							this.deletee = [];
 							return;
 						}
 
 						this.isList.forEach((islist,ind)=>{
-							console.log(islist)
+							console.log(111)
 							this.dataList.forEach((datalist,index)=>{
-								console.log(datalist)
+								console.log(222)
 								if (islist.productId === datalist.productId) {
 									this.dataList.splice(index, 1);
 									// this.isList.splice(ind, 1);
-									console.log(999)
+									console.log(3333)
 									this.isList = [];
+									this.deletee = [];
 								}
 							})
 						})
+						Toast({
+							message: '删除成功',
+							position: 'bottom',
+							duration: 2000,
+							className: '.toast'
+						});
 					}
 				})
 				
