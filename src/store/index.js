@@ -8,10 +8,21 @@ const store = new Vuex.Store({
 	state:{
 		show:true,
 		msgType:1,
-		isLog:''
+		isLog:'',
+		list:[],
+	    changeResult:'onShelfTime',
+	    datalist2:[],
+        currend:0
 	},
 	actions:{
-
+       getimg(store,payload){
+           store.state.currend++
+       	   var id = window.encodeURIComponent(payload)
+           axios.get(`/product/search?keyword=${id}&sort=${store.state.changeResult}&order=desc&currentPage=${store.state.currend}&_=${new Date().getTime()}`).then(res=>{
+                console.log(res.data.data.products)
+                store.commit('getimgMutations',res.data.data.products)
+           })
+       }
 	},
 	mutations:{
 		changeNavbar(state,payload){
@@ -26,6 +37,23 @@ const store = new Vuex.Store({
 		},
 		changeLog(state,payload){
 			state.isLog = payload;
+		},
+		changeResult(state,payload){
+             state.changeResult = payload
+             state.currend = 0
+             state.list = []
+		},
+		datalist(state,payload){
+			 state.datalist2.push(payload)
+             state.list = []
+		},
+		datalist3(state,payload){
+			 state.datalist2 = []
+             
+		},
+		getimgMutations(state,payload){
+			 state.list = [...state.list,...payload]
+             
 		}
 	}
 })

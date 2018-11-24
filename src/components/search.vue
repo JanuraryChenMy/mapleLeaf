@@ -2,8 +2,8 @@
 	<div> 
 	     <ul class="ul">
 	     	<li class="li">
-	     		<span class="tubiao"><i class="iconfont icon-originalimage"></i></span>
-		 		<input class="input" type="text" placeholder="搜索我的尖叫好物" v-model="value">
+	     	<span class="tubiao"><i class="iconfont icon-originalimage" ></i></span>
+		 		<input class="input" type="text" placeholder="搜索我的尖叫好物" v-model="value" @keydown="keydown($event,value)">
 	     	</li>
 	     	<li>
 	     	  <router-link to="/home">
@@ -18,8 +18,8 @@
              </li> 
              <li class="li3">
              	<div class="div2">历史搜索</div>
-             	<div class="div3" v-for="data in datalist2">{{data}}</div>
-             	<i class="iconfont icon-close"></i>
+             	<div class="div3" v-for="data in $store.state.datalist2">{{data}}</div>
+             	<i class="iconfont icon-close" @click="del()"></i>
              </li> 
 	     </ul>
 	     
@@ -27,6 +27,8 @@
 </template>
 <script>
     import axios from 'axios';
+    
+   
 
 
 	 export default{
@@ -34,21 +36,34 @@
 	 	   data(){
 	 	   	   return {
 	 	         value:'',
-	 	         datalist:['尖叫设计','暖手宝','沙发','被子','餐具','茶具','吊灯','厨房','儿童','HAY','Arebia','家饰','收纳','床上用品','旅行'],
-	 	         datalist2:[]
+	 	       
+	 	         datalist:['尖叫设计','暖手宝','沙发','餐具','茶具','吊灯','厨房','儿童','HAY','Arebia','家饰','收纳','床上用品','旅行']
+	 	    
 	 	   	   }
 	 	   },
-	 	   mounted(){
-	 	   	   // click(){
-          //          axios.get(``)
-	 	   	   // }
-	 	   },
+	 	   // mounted(){
+	 	   	
+	 	   // },
 	 	   methods:{
                click(data){
-               	   var id = window.encodeURIComponent(data);
-               	   console.log(id)
-               	   this.$router.push('/result/'+id)
+                   var id = data;
+                   this.$router.push('/result/'+id)
+                   this.$store.commit('datalist',id)
+               },
+                   
+                   
+                 
+               keydown(evt,id){
+                 if( evt.keyCode == 13){
+                     this.$router.push('/result/'+id)
+                     this.$store.commit('datalist',id)
+                 }
+               },
+               del(){
+                   this.$store.commit('datalist3')
                }
+
+                  
 	 	   }
 	 }
 </script>
